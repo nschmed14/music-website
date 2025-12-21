@@ -4,6 +4,10 @@
   "private": true,
   "license": "SEE LICENSE IN LICENSE.md",
   "description": "Proprietary portfolio website - © 2025 Noah Schmedding",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "framer-motion": "^12.12.1",
