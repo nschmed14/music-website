@@ -1,7 +1,7 @@
 {
   "short_name": "Noah Schmedding",
-  "name": "Noah Schmedding - Saxophonist & Composer",
-  "description": "Official website showcasing saxophone performances, compositions, and music lessons",
+  "name": "Noah Schmedding - Saxophonist",
+  "description": "Saxophonist and educator offering private lessons and performances. Master's candidate at UW-Madison.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -27,5 +27,5 @@
   "background_color": "#F5F5F5",
   "orientation": "portrait-primary",
   "scope": "/",
-  "categories": ["music", "entertainment"]
+  "categories": ["music", "education", "entertainment"]
 }
