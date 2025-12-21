@@ -6,8 +6,8 @@
  */
 
 import React from 'react';
-import Header from './Header';
-import Footer from './Footer';
+import Header from './Header.js';
+import Footer from './Footer.js';
 
 export default function Bio() {
     return (

@@ -1,66 +1,96 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Header from './Header';
+/**
+ * @file Media.js
+ * @description Media gallery component with video and photo sections
+ * @copyright 2025 Noah Schmedding. All Rights Reserved.
+ * @confidential This file contains proprietary information. Do not distribute.
+ */
+
+import React, { useState, useMemo } from 'react';
+import Header from './Header.js';
+import Footer from './Footer.js';
 
 const Media = () => {
   const [activeTab, setActiveTab] = useState('video');
 
-  const videos = [
+  // Optimized photo array with WebP support
+  const photos = useMemo(() => [
+    { id: 1, src: '/assets/photos/photo1.jpg', webp: '/assets/photos/photo1.webp' },
+    { id: 2, src: '/assets/photos/photo2.jpg', webp: '/assets/photos/photo2.webp' },
+    { id: 3, src: '/assets/photos/photo3.jpg', webp: '/assets/photos/photo3.webp' },
+    { id: 4, src: '/assets/photos/photo4.jpg', webp: '/assets/photos/photo4.webp' },
+    { id: 5, src: '/assets/photos/photo5.jpg', webp: '/assets/photos/photo5.webp' },
+    { id: 6, src: '/assets/photos/photo6.jpg', webp: '/assets/photos/photo6.webp' },
+  ], []);
+
+  const videos = useMemo(() => [
     {
-      id: 'YOUR_VIDEO_ID_1',
-      title: 'Blue Caprice',
-      composer: 'Isaiah Collier',
-      description: 'Live performance featuring contemporary jazz improvisation techniques',
+      id: 'qKee9bEtlto',
+      title: 'Pequeña Czarda',
+      composer: 'Pedro Iturralde',
+      description: `Live performance from my year 1 master's recital in Spring of 2025.\n\nFeaturing:\nAlto Saxophone - Dr. Andrew MacRossie \nPiano - Dr. Elizabeth Vaughan`,
       align: 'right'
     },
     {
-      id: 'YOUR_VIDEO_ID_2',
-      title: 'Sonata for Alto Saxophone',
+      id: 'EtzSO-1u9YU',
+      title: 'Concerto for Alto Saxophone and Band I. Energetic',
       composer: 'Paul Creston',
-      description: 'First movement performed at UW-Madison recital hall',
+      description: 'Recorded in November of 2023 in preparation for my masters degree audition cycle\n\nFeaturing:\nPiano - John Flannery',
       align: 'left'
     },
     {
-      id: 'YOUR_VIDEO_ID_3',
-      title: 'Improvisation in G Minor',
-      composer: 'Noah Schmedding',
-      description: 'Original composition showcasing extended techniques',
+      id: '9-_qDosZBzg',
+      title: 'Concerto for Alto Saxophone and Band III. Rhythmic',
+      composer: 'Paul Creston',
+      description: 'Recorded in November of 2023 in preparation for my masters degree audition cycle\n\nFeaturing:\nPiano - John Flannery',
       align: 'right'
     },
-    {
-      id: 'YOUR_VIDEO_ID_4',
-      title: 'Tableaux de Provence',
-      composer: 'Paule Maurice',
-      description: 'Excerpts from this French classical work',
-      align: 'left'
-    },
-    {
-      id: 'YOUR_VIDEO_ID_5',
-      title: 'Jazz Standards Medley',
-      composer: 'Various',
-      description: 'Live quartet performance featuring classic repertoire',
-      align: 'right'
-    }
-  ];
+  ], []);
 
   return (
-    <div className="relative min-h-screen bg-[#F5F5F5]">
-      {/* Use the shared Header component */}
+    <div className="relative min-h-screen flex flex-col">
       <Header />
 
-      {/* Main Content - Adjusted padding-top for taller header */}
-      <div className="pt-40 pb-16 px-4 md:px-8">
+      {/* Background Image with WebP support */}
+      <div className="fixed inset-0 -z-10">
+        <picture>
+          <source srcSet="/assets/media.webp" type="image/webp" />
+          <img
+            src="/assets/media.jpg"
+            alt="Media Background"
+            className="w-full h-full object-cover"
+            style={{
+              objectPosition: 'left center'
+            }}
+            loading="lazy"
+            decoding="async"
+            width="1920"
+            height="1080"
+          />
+        </picture>
+      </div>
+
+      <div className="pt-40 pb-16 px-4 md:px-8 flex-grow relative z-10">
         {/* Tab Navigation */}
         <div className="flex justify-center mb-16">
           <button
             onClick={() => setActiveTab('photo')}
-            className={`px-8 py-3 mx-2 text-lg font-display ${activeTab === 'photo' ? 'bg-[#2C423F] text-white' : 'bg-[#949B96] text-white hover:bg-[#829191]'} transition-colors rounded-lg`}
+            className={`px-10 py-4 mx-3 text-xl rounded-xl transition-all duration-300 ${activeTab === 'photo' 
+              ? 'bg-black/60 backdrop-blur-md text-white shadow-lg transform scale-105 border border-white/20' 
+              : 'bg-black/40 backdrop-blur-sm text-white hover:bg-black/50 hover:shadow-md hover:transform hover:scale-[1.02] border border-white/10'}`}
+            style={{ fontFamily: "'Ringbearer', sans-serif" }}
+            aria-pressed={activeTab === 'photo'}
+            aria-label="View photo gallery"
           >
             Photo
           </button>
           <button
             onClick={() => setActiveTab('video')}
-            className={`px-8 py-3 mx-2 text-lg font-display ${activeTab === 'video' ? 'bg-[#2C423F] text-white' : 'bg-[#949B96] text-white hover:bg-[#829191]'} transition-colors rounded-lg`}
+            className={`px-10 py-4 mx-3 text-xl rounded-xl transition-all duration-300 ${activeTab === 'video' 
+              ? 'bg-black/60 backdrop-blur-md text-white shadow-lg transform scale-105 border border-white/20' 
+              : 'bg-black/40 backdrop-blur-sm text-white hover:bg-black/50 hover:shadow-md hover:transform hover:scale-[1.02] border border-white/10'}`}
+            style={{ fontFamily: "'Ringbearer', sans-serif" }}
+            aria-pressed={activeTab === 'video'}
+            aria-label="View video gallery"
           >
             Video
           </button>
@@ -68,42 +98,131 @@ const Media = () => {
 
         {/* Video Content */}
         {activeTab === 'video' && (
-          <div className="max-w-6xl mx-auto space-y-24">
+          <div className="max-w-6xl mx-auto space-y-12 lg:space-y-24">
             {videos.map((video, index) => (
               <div 
-                key={index} 
-                className={`flex flex-col ${video.align === 'left' ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-8 md:gap-12`}
+                key={video.id} 
+                className={`flex flex-col ${video.align === 'left' ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-stretch gap-0 overflow-hidden rounded-xl shadow-2xl`}
               >
-                {/* Video Embed with proper 16:9 aspect ratio container */}
-                <div className="w-full md:w-2/3 relative" style={{ paddingBottom: '56.25%' }}>
-                  <iframe
-                    src={`https://www.youtube.com/embed/${video.id}`}
-                    className="absolute top-0 left-0 w-full h-full rounded-xl shadow-lg"
-                    title={video.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowFullScreen
-                    frameBorder="0"
-                  />
+                {/* Video Embed */}
+                <div className="w-full lg:w-2/3 relative">
+                  <div className="relative" style={{ paddingBottom: '56.25%' }}>
+                    <iframe
+                      src={`https://www.youtube-nocookie.com/embed/${video.id}`}
+                      className="absolute top-0 left-0 w-full h-full"
+                      title={`${video.title} - ${video.composer}`}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      sandbox="allow-scripts allow-same-origin allow-presentation"
+                    />
+                  </div>
                 </div>
                 
-                {/* Text Content */}
-                <div className="w-full md:w-1/3 p-4">
-                  <h2 className="font-display text-2xl md:text-3xl text-[#2C423F] mb-3">{video.title}</h2>
-                  <p className="text-lg md:text-xl text-[#829191] mb-4">{video.composer}</p>
-                  <p className="text-[#4C5B61] leading-relaxed">{video.description}</p>
+                {/* Description Box */}
+                <div className="w-full lg:w-1/3 relative lg:block">
+                  <div className="hidden lg:block absolute inset-0 bg-black/40 backdrop-blur-sm border-l border-r border-white/20">
+                    <div className="h-full p-6 md:p-8 flex flex-col justify-center">
+                      <h2 
+                        className="text-2xl md:text-3xl mb-3 font-light text-white"
+                        style={{ fontFamily: "'Ringbearer', sans-serif" }}
+                      >
+                        {video.title}
+                      </h2>
+                      <p className="text-lg md:text-xl text-gray-300 mb-4 italic font-sans">
+                        {video.composer}
+                      </p>
+                      <p className="text-white leading-relaxed whitespace-pre-line font-sans">
+                        {video.description}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="lg:hidden bg-black/40 backdrop-blur-sm p-6 border-t border-white/20">
+                    <h2 
+                      className="text-2xl mb-3 font-light text-white"
+                      style={{ fontFamily: "'Ringbearer', sans-serif" }}
+                    >
+                      {video.title}
+                    </h2>
+                    <p className="text-lg text-gray-300 mb-4 italic font-sans">
+                      {video.composer}
+                    </p>
+                    <p className="text-white leading-relaxed whitespace-pre-line font-sans">
+                      {video.description}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         )}
 
-        {/* Photo Content */}
+        {/* Photo Gallery */}
         {activeTab === 'photo' && (
-          <div className="max-w-4xl mx-auto text-center py-20">
-            <h2 className="text-3xl font-display text-[#2C423F] mb-6">Photo Gallery</h2>
-            <p className="text-xl text-[#4C5B61]">Coming soon</p>
+          <div className="max-w-7xl mx-auto px-4 md:px-8">
+            <h2 
+              className="text-4xl font-light text-white mb-8 text-center"
+              style={{ fontFamily: "'Ringbearer', sans-serif" }}
+            >
+              Photo Gallery
+            </h2>
+
+            {/* CSS Columns Masonry */}
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+              {photos.length > 0 ? (
+                photos.map((photo) => (
+                  <div 
+                    key={photo.id}
+                    className="group break-inside-avoid overflow-hidden rounded-xl shadow-lg bg-black/10 hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02]"
+                  >
+                    <picture>
+                      <source srcSet={photo.webp} type="image/webp" />
+                      <img
+                        src={photo.src}
+                        alt={`Performance photo ${photo.id}`}
+                        className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                        decoding="async"
+                        width="800"
+                        height="600"
+                      />
+                    </picture>
+                  </div>
+                ))
+              ) : (
+                <div className="col-span-3">
+                  <div className="bg-black/40 backdrop-blur-sm rounded-xl p-12 md:p-16 border border-white/20 text-center">
+                    <p className="text-2xl text-white font-sans mb-4">
+                      Photo Gallery Coming Soon
+                    </p>
+                    <p className="text-lg text-gray-300 font-sans">
+                      Professional performance, studio, and teaching photos will be added here.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Instructions for adding photos */}
+            {photos.length === 0 && (
+              <div className="mt-12 bg-black/20 rounded-xl p-6 max-w-3xl mx-auto">
+                <h3 className="text-xl text-white mb-4 font-sans font-medium">How to Add Your Photos:</h3>
+                <ol className="text-gray-300 space-y-2 ml-4 list-decimal font-sans">
+                  <li>Add your photos to <code className="bg-black/40 px-2 py-1 rounded">public/assets/photos/</code></li>
+                  <li>Update the <code className="bg-black/40 px-2 py-1 rounded">photos</code> array above with your photo details</li>
+                  <li>Each photo needs: <code className="bg-black/40 px-2 py-1 rounded">id</code> and <code className="bg-black/40 px-2 py-1 rounded">src</code> (path)</li>
+                </ol>
+              </div>
+            )}
           </div>
         )}
+      </div>
+      
+      {/* Footer */}
+      <div className="mt-auto relative z-10">
+        <Footer />
       </div>
     </div>
   );
