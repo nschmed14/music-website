@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import Header from './Header.js';
 import Footer from './Footer.js';
 import Lottie from 'lottie-react';
-import animationData from '../assets/animations/signature-animation.json';
+import animationData from '../../assets/animations/signature-animation.json';
 
 const Home = () => {
   const lottieRef = useRef();
