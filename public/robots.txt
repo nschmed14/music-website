@@ -1,3 +1,8 @@
-# https://www.robotstxt.org/robotstxt.html
+# public/robots.txt
 User-agent: *
-Disallow:
+Allow: /
+
+Sitemap: https://noahsax.com/sitemap.xml
+
+# Crawl-delay if needed for hosting limitations
+# Crawl-delay: 10

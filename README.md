@@ -1,73 +1,47 @@
-# Getting Started with Create React App
+# Noah Schmedding - Saxophonist Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**© 2025 Noah Schmedding. All rights reserved. Unauthorized use, reproduction, or distribution is strictly prohibited.**
 
-## Available Scripts
+> **IMPORTANT:** This repository contains proprietary source code, design assets, and creative content for the personal portfolio website of Noah Schmedding (`noahsax.com`). This is **NOT** open-source software.
 
-In the project directory, you can run:
+## 🚫 Intellectual Property & Usage Restrictions
 
-### `npm start`
+### **Protected Assets Include:**
+- **Source Code:** React components, routing logic, animation implementations, and configuration files
+- **Design System:** Custom Tailwind CSS configurations, responsive layouts, and UI/UX patterns
+- **Original Media:** All photographs, graphics, and visual assets (including signature animation JSON files)
+- **Brand Identity:** Custom fonts (`JunigardenSwash.ttf`, `Ringbearer.ttf`), logos, and the "Noah Sax" brand
+- **Integration Code:** EmailJS, reCAPTCHA, and YouTube API implementations
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### **Permitted Use:**
+- Viewing this code for **educational purposes only**
+- Inspecting implementation approaches **for learning**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### **Prohibited Use (Without Explicit Written Permission):**
+- Copying, modifying, or redistributing any code or assets
+- Using this codebase as a template for other projects
+- Deploying this site or derivatives for any purpose
+- Commercial use of any kind
+- Claiming authorship or ownership of any component
 
-### `npm test`
+## 🎷 Live Website
+The production version is exclusively deployed at: [https://noahsax.com](https://noahsax.com)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🔧 Technical Stack (For Reference Only)
+- **Frontend:** React 19 with React Router DOM v7
+- **Styling:** Tailwind CSS v3 with custom configurations
+- **Animations:** Framer Motion, GSAP, Lottie React
+- **Integrations:** EmailJS, reCAPTCHA, YouTube Iframe API
+- **Build Tool:** Create React App
+- **Deployment:** Static hosting with custom domain configuration
 
-### `npm run build`
+## 📞 Licensing & Contact
+This work is protected under copyright law. All rights are reserved by Noah Schmedding.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+For licensing inquiries, collaboration requests, or usage permissions:
+- **Email:** naschmedding@gmail.com
+- **Website:** [noahsax.com/contact](https://noahsax.com/contact)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-# music-website
-My personal music website
+*This repository exists for portfolio demonstration purposes only. By accessing this code, you acknowledge and agree to these restrictions.*

@@ -1,23 +1,33 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Header from './Header.js';
 import Footer from './Footer.js';
 import Lottie from 'lottie-react';
-import animationData from '../../assets/animations/signature-animation.json';
 
 const Home = () => {
   const lottieRef = useRef();
+  const [animationData, setAnimationData] = useState(null);
 
   useEffect(() => {
-    if (lottieRef.current) {
+    // Load the animation JSON
+    fetch('/assets/animations/signature-animation.json')
+      .then(response => response.json())
+      .then(data => {
+        setAnimationData(data);
+      })
+      .catch(error => console.error('Error loading animation:', error));
+  }, []);
+
+  useEffect(() => {
+    if (lottieRef.current && animationData) {
       lottieRef.current.play();
     }
-  }, []);
+  }, [animationData]);
 
   return (
     <div className="relative min-h-screen flex flex-col">
       <Header />
       
-      {/* Background Image with WebP support - ONLY CHANGE */}
+      {/* Background Image */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
         <picture>
           <source srcSet="/assets/home.webp" type="image/webp" />
@@ -42,22 +52,24 @@ const Home = () => {
                       max-h-[calc(100vh-10%)]
                       transition-all duration-300">
         <div className="relative w-full h-full">
-          <Lottie
-            lottieRef={lottieRef}
-            animationData={animationData}
-            loop={false}
-            autoplay={true}
-            rendererSettings={{
-              preserveAspectRatio: 'xMidYMid meet'
-            }}
-            style={{
-              filter: 'brightness(0) invert(1) sepia(1) saturate(0)',
-              width: '100%',
-              height: '100%',
-              maxWidth: '100%',
-              maxHeight: '100%'
-            }}
-          />
+          {animationData && (
+            <Lottie
+              lottieRef={lottieRef}
+              animationData={animationData}
+              loop={false}
+              autoplay={true}
+              rendererSettings={{
+                preserveAspectRatio: 'xMidYMid meet'
+              }}
+              style={{
+                filter: 'brightness(0) invert(1) sepia(1) saturate(0)',
+                width: '100%',
+                height: '100%',
+                maxWidth: '100%',
+                maxHeight: '100%'
+              }}
+            />
+          )}
         </div>
       </div>
       

@@ -1,0 +1,44 @@
+/* src/assets/fonts/fonts.css - Updated */
+@font-face {
+  font-family: 'Ringbearer';
+  src: url('./Ringbearer.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Remove or comment out the other @font-face rules since you don't have those files */
+/*
+@font-face {
+  font-family: 'Ringbearer';
+  src: url('./Ringbearer.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ringbearer';
+  src: url('./RingbearerMedium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ringbearer';
+  src: url('./RingbearerBold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+*/
+
+@font-face {
+  font-family: 'JunigardenSwash';
+  src: local('JunigardenSwash'),
+       url('./JunigardenSwash.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
