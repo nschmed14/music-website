@@ -56,7 +56,7 @@ const Media = () => {
           <source srcSet="/assets/media.webp" type="image/webp" />
           <img
             src="/assets/media.jpg"
-            alt="Media Background"
+            alt="Saxophone performance background with stage lighting"
             className="w-full h-full object-cover"
             style={{
               objectPosition: 'left center'
@@ -181,7 +181,7 @@ const Media = () => {
                       <source srcSet={photo.webp} type="image/webp" />
                       <img
                         src={photo.src}
-                        alt={`Performance photo ${photo.id}`}
+                        alt={`Performance ${photo.id} - saxophonist on stage`}
                         className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
                         decoding="async"
