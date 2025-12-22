@@ -428,85 +428,144 @@ const Header = () => {
         {/* Empty div for desktop layout balance - RIGHT SIDE */}
         {!isMobileLayout && <div className="w-1/3"></div>}
 
-        {/* Mobile Menu Overlay - FIXED POSITIONING */}
+        {/* Mobile Menu Overlay - PROFESSIONAL ROW-BASED DESIGN */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <>
-              {/* Overlay background */}
+              {/* Subtle overlay background */}
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+                transition={{ duration: 0.2 }}
+                className="fixed inset-0 bg-black/20 z-40"
                 onClick={toggleMobileMenu}
               />
               
-              {/* Menu content - positioned below the existing header */}
+              {/* Menu container - Clean slate background */}
               <motion.div 
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ 
-                  type: "spring", 
-                  stiffness: 300, 
-                  damping: 25,
-                  duration: 0.3 
+                initial={{ 
+                  opacity: 0,
+                  x: -40,
+                  clipPath: "circle(0% at 0 0)"
                 }}
-                className="fixed top-20 left-0 right-0 z-50 bg-transparent flex justify-center items-start px-4 py-8"
-                style={{ height: 'calc(100vh - 80px)' }}
+                animate={{ 
+                  opacity: 1,
+                  x: 0,
+                  clipPath: "circle(150% at 0 0)"
+                }}
+                exit={{ 
+                  opacity: 0,
+                  x: -40,
+                  clipPath: "circle(0% at 0 0)"
+                }}
+                transition={{ 
+                  duration: 0.4,
+                  ease: [0.25, 0.1, 0.25, 1]
+                }}
+                className="fixed top-20 left-0 z-50 bg-[#2A1A0F] shadow-xl"
+                style={{ 
+                  width: '300px',
+                  maxWidth: '85vw'
+                }}
               >
-                {/* Single container box for all navigation items - Less transparent with black border */}
-                <motion.div 
-                  initial={{ scale: 0.95 }}
-                  animate={{ scale: 1 }}
-                  exit={{ scale: 0.95 }}
-                  transition={{ 
-                    type: "spring", 
-                    stiffness: 300, 
-                    damping: 25 
+                {/* Menu content - Professional row layout */}
+                <motion.nav 
+                  className="flex flex-col"
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: { 
+                      opacity: 1,
+                      transition: { staggerChildren: 0.07 }
+                    }
                   }}
-                  className="bg-[#5C4033]/90 backdrop-blur-md border-2 border-black rounded-2xl shadow-2xl p-6 w-full max-w-md"
                 >
-                  <motion.nav 
-                    className="flex flex-col space-y-4"
-                  >
-                    {navLinks.map((link, index) => (
-                      <motion.div
-                        key={link.path}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ 
-                          duration: 0.3,
-                          delay: index * 0.1 
-                        }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="w-full"
+                  {navLinks.map((link, index) => (
+                    <motion.div
+                      key={link.path}
+                      variants={{
+                        hidden: { opacity: 0, x: -20 },
+                        visible: { opacity: 1, x: 0 }
+                      }}
+                      transition={{ 
+                        duration: 0.3,
+                        ease: "easeOut"
+                      }}
+                      className="group"
+                    >
+                      <NavLink
+                        to={link.path}
+                        onClick={toggleMobileMenu}
+                        className={({ isActive }) => 
+                          `block relative overflow-hidden transition-all duration-300 py-5 px-8 
+                          ${isActive 
+                            ? 'bg-gradient-to-r from-[#3A2515] to-[#2A1A0F] text-white border-l-4 border-[#D4AF37]' 
+                            : 'text-[#E8E0D5] hover:bg-gradient-to-r hover:from-[#3A2515]/50 hover:to-[#2A1A0F]/50 hover:text-white'
+                          } 
+                          ${index !== navLinks.length - 1 ? 'border-b border-[#3A2515]' : ''}`
+                        }
+                        style={({ isActive }) => ({ 
+                          fontFamily: "'Ringbearer', sans-serif",
+                          letterSpacing: '0.05em',
+                          fontSize: '1.05rem',
+                          fontWeight: isActive ? '500' : '400'
+                        })}
                       >
-                        <NavLink
-                          to={link.path}
-                          onClick={toggleMobileMenu}
-                          className={({ isActive }) => 
-                            `block w-full text-center transition-all duration-300 py-5 px-6 rounded-xl text-white font-medium
-                            ${isActive 
-                              ? 'bg-[#8B5A5A]/80 border-2 border-[#A67C7C] shadow-lg' 
-                              : 'bg-[#4A2C2A]/50 border border-black/50 hover:bg-[#6B4F4F]/70 hover:border-[#8B5A5A] hover:shadow-lg'
-                            }`
-                          }
-                          style={{ 
-                            fontFamily: "'Ringbearer', sans-serif",
-                            letterSpacing: '0.1em',
-                            fontSize: '1.1rem'
-                          }}
-                        >
-                          {link.name}
-                        </NavLink>
-                      </motion.div>
-                    ))}
-                  </motion.nav>
-                </motion.div>
+                        {({ isActive }) => (
+                          <>
+                            {/* Active indicator line */}
+                            {isActive && (
+                              <motion.div 
+                                className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/10 to-transparent"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.3 }}
+                              />
+                            )}
+                            
+                            {/* Hover effect */}
+                            <div className={`absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700 ${
+                              isActive ? 'opacity-50' : 'opacity-30'
+                            }`} />
+                            
+                            {/* Link content */}
+                            <div className="relative flex items-center">
+                              <span className="flex-1">{link.name}</span>
+                              
+                              {/* Arrow indicator for active/hover */}
+                              <motion.svg 
+                                className={`w-5 h-5 ml-2 ${
+                                  isActive ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]'
+                                }`}
+                                fill="none" 
+                                stroke="currentColor" 
+                                viewBox="0 0 24 24"
+                                initial={{ x: -10, opacity: 0 }}
+                                animate={{ 
+                                  x: isActive ? 0 : -10,
+                                  opacity: isActive ? 1 : 0
+                                }}
+                                transition={{ duration: 0.3 }}
+                              >
+                                <path 
+                                  strokeLinecap="round" 
+                                  strokeLinejoin="round" 
+                                  strokeWidth="2" 
+                                  d="M9 5l7 7-7 7"
+                                />
+                              </motion.svg>
+                            </div>
+                          </>
+                        )}
+                      </NavLink>
+                    </motion.div>
+                  ))}
+                </motion.nav>
+                
+                {/* Subtle decorative element */}
+                <div className="absolute bottom-0 right-0 w-24 h-1 bg-gradient-to-l from-[#D4AF37]/30 via-[#D4AF37]/10 to-transparent"></div>
               </motion.div>
             </>
           )}
