@@ -322,12 +322,6 @@ function ContactForm() {
                             </p>
                         </form>
                     </div>
-                    
-                    {/* Debug Info (remove in production) */}
-                    <div className="mt-4 p-3 bg-black/20 rounded text-xs text-gray-400">
-                        <p>Debug: reCAPTCHA {recaptchaReady ? 'READY' : 'LOADING'}</p>
-                        <p>Key: {recaptchaKey.substring(0, 10)}...</p>
-                    </div>
                 </div>
             </div>
             
