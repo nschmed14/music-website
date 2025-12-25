@@ -102,3 +102,39 @@
   border-radius: 50%;
   animation: pencil-sound 0.3s infinite alternate;
 }
+
+/* Add these to your existing index.css */
+
+/* Hardware acceleration for animations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Reduce animations on mobile */
+@media (max-width: 768px) {
+  .lottie-animation {
+    animation-duration: 2s !important;
+  }
+  
+  /* Simplify complex animations */
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Prioritize critical animations */
+@supports (animation-timeline: scroll()) {
+  .signature-animation {
+    animation-timeline: auto;
+    animation-range: 0% 100%;
+  }
+}
+
+/* Fallback for browsers that don't support will-change */
+.lottie-container {
+  transform: translate3d(0, 0, 0);
+}
