@@ -9,6 +9,12 @@
   directory = "api"
   node_bundler = "esbuild"
 
+# Important: This must come BEFORE the API redirect
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
