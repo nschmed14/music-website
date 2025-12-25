@@ -138,3 +138,72 @@
 .lottie-container {
   transform: translate3d(0, 0, 0);
 }
+
+/* ==================== */
+/* MOBILE PERFORMANCE FIXES */
+/* ==================== */
+
+/* Force hardware acceleration for animation containers */
+.animation-container {
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  contain: layout paint;
+}
+
+/* Mobile-specific performance optimizations */
+@media (max-width: 768px) and (hover: none) and (pointer: coarse) {
+  /* Target touch devices only */
+  
+  /* Reduce paint operations during animation */
+  body:has(.lottie-animation) *:not(.animation-container) {
+    animation-play-state: paused !important;
+    transition: none !important;
+  }
+  
+  /* Optimize image rendering */
+  picture img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+  
+  /* Simplify the signature filter for mobile */
+  .lottie-container {
+    filter: brightness(0) invert(1) !important;
+    -webkit-filter: brightness(0) invert(1) !important;
+  }
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 0.8s linear infinite;
+}
+
+/* Ensure smooth opacity transitions */
+.transition-opacity {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* iOS-specific fixes */
+@supports (-webkit-touch-callout: none) {
+  .lottie-animation {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin,
+  .transition-opacity {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
