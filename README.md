@@ -4,18 +4,11 @@
 
 > **IMPORTANT:** This repository contains proprietary source code, design assets, and creative content for the personal portfolio website of Noah Schmedding (`noahsax.com`). This is **NOT** open-source software.
 
-## 🚫 Intellectual Property & Usage Restrictions
-
-### **Protected Assets Include:**
-- **Source Code:** React components, routing logic, animation implementations, and configuration files
-- **Design System:** Custom Tailwind CSS configurations, responsive layouts, and UI/UX patterns
-- **Original Media:** All photographs, graphics, and visual assets (including signature animation JSON files)
-- **Brand Identity:** Custom fonts (`JunigardenSwash.ttf`, `Ringbearer.ttf`), logos, and the "Noah Sax" brand
-- **Integration Code:** EmailJS, reCAPTCHA, and YouTube API implementations
+## Intellectual Property & Usage Restrictions
 
 ### **Permitted Use:**
-- Viewing this code for **educational purposes only**
-- Inspecting implementation approaches **for learning**
+- Viewing this code for educational purposes
+- Viewing this code to evaluate potential employment (**You should hire me I do great work**)
 
 ### **Prohibited Use (Without Explicit Written Permission):**
 - Copying, modifying, or redistributing any code or assets
@@ -24,10 +17,10 @@
 - Commercial use of any kind
 - Claiming authorship or ownership of any component
 
-## 🎷 Live Website
+## Live Website
 The production version is exclusively deployed at: [https://noahsax.com](https://noahsax.com)
 
-## 🔧 Technical Stack (For Reference Only)
+## Technical Stack
 - **Frontend:** React 19 with React Router DOM v7
 - **Styling:** Tailwind CSS v3 with custom configurations
 - **Animations:** Framer Motion, GSAP, Lottie React
@@ -35,7 +28,7 @@ The production version is exclusively deployed at: [https://noahsax.com](https:/
 - **Build Tool:** Create React App
 - **Deployment:** Static hosting with custom domain configuration
 
-## 📞 Licensing & Contact
+## Licensing & Contact
 This work is protected under copyright law. All rights are reserved by Noah Schmedding.
 
 For licensing inquiries, collaboration requests, or usage permissions:
