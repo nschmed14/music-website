@@ -1,7 +1,7 @@
 /**
  * @file Footer.js
  * @description Website footer component with social links and signature
- * @copyright 2024 Noah Schmedding. All Rights Reserved.
+ * @copyright 2025 Noah Schmedding. All Rights Reserved.
  * @confidential This file contains proprietary information. Do not distribute.
  */
 

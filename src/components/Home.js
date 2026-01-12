@@ -70,9 +70,9 @@ const Home = () => {
           />
         </picture>
       </div>
-
+      
       <div 
-        className="absolute top-[5%] left-[5%] 
+        className="absolute top-[10%] left-[5%] 
                    w-[90vw] max-w-[1050px] 
                    h-[40vh] max-h-[750px]"
       >
