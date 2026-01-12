@@ -11,11 +11,9 @@ import Footer from './Footer.js';
 
 export default function Bio() {
     return (
-      // Main page container
       <div className="relative min-h-screen flex flex-col">
         <Header />
         
-        // Background image with dark overlay
         <div className="fixed inset-0 -z-10">
           <picture>
             <source srcSet="/assets/bio.webp" type="image/webp" />
@@ -35,9 +33,7 @@ export default function Bio() {
           <div className="absolute inset-0 bg-black bg-opacity-40"></div>
         </div>
 
-        // Biography content section
         <div className="container mx-auto px-4 py-8 relative z-10 pt-40 flex-grow">
-          // Biography page title
           <h1 
             className="text-4xl md:text-5xl font-light mb-8 text-white"
             style={{ fontFamily: "'Ringbearer', sans-serif" }}
@@ -45,7 +41,6 @@ export default function Bio() {
             Biography
           </h1>
           
-          // Biography text container with styling
           <div className="bg-[#5C4033]/80 backdrop-blur-md border-2 border-black rounded-xl p-6 md:p-8 max-w-3xl">
             <div className="text-lg md:text-xl font-light leading-relaxed text-white whitespace-pre-line font-sans space-y-6">
               <p>
@@ -63,7 +58,6 @@ export default function Bio() {
           </div>
         </div>
         
-        // Footer positioned at bottom
         <div className="mt-auto">
           <Footer />
         </div>

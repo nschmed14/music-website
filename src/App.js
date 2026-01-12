@@ -66,23 +66,17 @@ function App() {
   const location = useLocation();
 
   return (
-    // Wrap everything in error boundary
     <ErrorBoundary>
-      // Background to prevent white flash
       <div className="fixed inset-0 bg-black -z-50"></div>
       
       <div className="relative min-h-screen">
-        // Show loading spinner while pages load
         <Suspense fallback={
           <div className="fixed inset-0 bg-black z-50">
             <LoadingSpinner />
           </div>
         }>
-          // Animate page transitions
           <AnimatePresence mode="wait" initial={false}>
-            // Define all page routes
             <Routes location={location} key={location.pathname}>
-              // Home page route
               <Route path="/" element={
                 <MainLayout>
                   <FadeTransition>
@@ -90,7 +84,6 @@ function App() {
                   </FadeTransition>
                 </MainLayout>
               } />
-              // Biography page route
               <Route path="/bio" element={
                 <MainLayout>
                   <FadeTransition>
@@ -98,7 +91,6 @@ function App() {
                   </FadeTransition>
                 </MainLayout>
               } />
-              // Media page route
               <Route path="/media" element={
                 <MainLayout>
                   <FadeTransition>
@@ -106,7 +98,6 @@ function App() {
                   </FadeTransition>
                 </MainLayout>
               } />
-              // Contact page route
               <Route path="/contact" element={
                 <MainLayout>
                   <FadeTransition>
@@ -114,7 +105,6 @@ function App() {
                   </FadeTransition>
                 </MainLayout>
               } />
-              // 404 page for all other routes
               <Route path="*" element={
                 <FadeTransition>
                   <NotFound />

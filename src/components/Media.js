@@ -48,11 +48,9 @@ const Media = () => {
   ], []);
 
   return (
-    // Main page container
     <div className="relative min-h-screen flex flex-col">
       <Header />
 
-      // Background image for media page
       <div className="fixed inset-0 -z-10">
         <picture>
           <source srcSet="/assets/media.webp" type="image/webp" />
@@ -71,9 +69,7 @@ const Media = () => {
         </picture>
       </div>
 
-      // Main content area
       <div className="pt-40 pb-16 px-4 md:px-8 flex-grow relative z-10">
-        // Tab navigation for photos/videos
         <div className="flex justify-center mb-16">
           <button
             onClick={() => setActiveTab('photo')}
@@ -99,7 +95,6 @@ const Media = () => {
           </button>
         </div>
 
-        // Video gallery section
         {activeTab === 'video' && (
           <div className="max-w-6xl mx-auto space-y-12 lg:space-y-24">
             {videos.map((video, index) => (
@@ -107,11 +102,9 @@ const Media = () => {
                 key={video.id} 
                 className={`flex flex-col ${video.align === 'left' ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-stretch gap-0 overflow-hidden rounded-xl shadow-2xl`}
               >
-                // YouTube video embed
                 <div className="w-full lg:w-2/3 relative">
                   <div className="relative" style={{ paddingBottom: '56.25%' }}>
                     <iframe
-                      src={`https://www.youtube-nocookie.com/embed/${video.id}`}
                       className="absolute top-0 left-0 w-full h-full"
                       title={`${video.title} - ${video.composer}`}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -123,7 +116,6 @@ const Media = () => {
                   </div>
                 </div>
                 
-                // Video description panel
                 <div className="w-full lg:w-1/3 relative lg:block">
                   <div className="hidden lg:block absolute inset-0 bg-black/40 backdrop-blur-sm border-l border-r border-white/20">
                     <div className="h-full p-6 md:p-8 flex flex-col justify-center">
@@ -162,10 +154,8 @@ const Media = () => {
           </div>
         )}
 
-        // Photo gallery section
         {activeTab === 'photo' && (
           <div className="max-w-7xl mx-auto px-4 md:px-8">
-            // Photo gallery title
             <h2 
               className="text-4xl font-light text-white mb-8 text-center"
               style={{ fontFamily: "'Ringbearer', sans-serif" }}
@@ -173,7 +163,6 @@ const Media = () => {
               Photo Gallery
             </h2>
 
-            // Masonry style photo grid
             <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
               {photos.length > 0 ? (
                 photos.map((photo) => (
@@ -196,7 +185,6 @@ const Media = () => {
                   </div>
                 ))
               ) : (
-                // Empty gallery placeholder
                 <div className="col-span-3">
                   <div className="bg-black/40 backdrop-blur-sm rounded-xl p-12 md:p-16 border border-white/20 text-center">
                     <p className="text-2xl text-white font-sans mb-4">
@@ -213,7 +201,6 @@ const Media = () => {
         )}
       </div>
       
-      // Footer section
       <div className="mt-auto relative z-10">
         <Footer />
       </div>

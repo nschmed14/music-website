@@ -92,7 +92,6 @@ function ContactForm() {
         };
     }, [recaptchaKey]);
 
-    // Handle form input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         const sanitizedValue = value.replace(/<[^>]*>/g, '');
@@ -103,7 +102,6 @@ function ContactForm() {
         if (error) setError('');
     };
 
-    // Get reCAPTCHA security token
     const getRecaptchaToken = async () => {
         if (!recaptchaReady || !window.grecaptcha || recaptchaKey === '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI') {
             console.log('Using mock reCAPTCHA token for testing');
@@ -121,7 +119,6 @@ function ContactForm() {
         }
     };
 
-    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         
@@ -183,11 +180,9 @@ function ContactForm() {
     };
 
     return (
-        // Main page container
         <div className="relative min-h-screen flex flex-col">
             <Header />
             
-            // Background image for contact page
             <div className="fixed inset-0 -z-10">
                 <picture>
                     <source srcSet="/assets/contact.webp" type="image/webp" />
@@ -204,11 +199,8 @@ function ContactForm() {
                 </picture>
             </div>
 
-            // Main content container aligned right
             <div className="container mx-auto px-4 py-8 relative z-10 pt-40 flex-grow flex justify-end">
-                // Form container
                 <div className="w-full max-w-lg mr-0 lg:mr-8">
-                    // Contact information header
                     <div className="bg-[#5C4033]/80 backdrop-blur-md border-2 border-black rounded-xl p-6 mb-6">
                         <h1 
                             className="text-4xl md:text-5xl font-light mb-4 text-white" 
@@ -229,7 +221,6 @@ function ContactForm() {
                         </ul>
                     </div>
                     
-                    // Success message display
                     {submitted && (
                         <div className="mb-6 p-4 bg-green-900/90 backdrop-blur-md border-2 border-green-600 text-white rounded-lg">
                             <p className="font-semibold">✅ Message Sent Successfully!</p>
@@ -239,7 +230,6 @@ function ContactForm() {
                         </div>
                     )}
                     
-                    // Error message display
                     {error && (
                         <div className="mb-6 p-4 bg-red-900/90 backdrop-blur-md border-2 border-red-600 text-white rounded-lg">
                             <p className="font-semibold">❌ Error</p>
@@ -247,10 +237,8 @@ function ContactForm() {
                         </div>
                     )}
                     
-                    // Contact form
                     <div className="bg-[#5C4033]/80 backdrop-blur-md border-2 border-black rounded-xl p-6">
                         <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-                            // Name input field
                             <input 
                                 type="text" 
                                 name="name"
@@ -264,7 +252,6 @@ function ContactForm() {
                                 maxLength="100"
                             />
                             
-                            // Email input field
                             <input 
                                 type="email" 
                                 name="email"
@@ -276,7 +263,6 @@ function ContactForm() {
                                 disabled={loading}
                             />
                             
-                            // Message textarea
                             <textarea 
                                 name="message"
                                 value={formData.message}
@@ -289,13 +275,11 @@ function ContactForm() {
                                 maxLength="2000"
                             />
                             
-                            // reCAPTCHA status display
                             <div className="text-xs text-gray-300 text-center pt-2">
                                 <p>reCAPTCHA Status: {recaptchaReady ? 'Ready' : 'Initializing...'}</p>
                                 <p className="text-[10px] opacity-70">Using {recaptchaKey === '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' ? 'TEST' : 'LIVE'} key</p>
                             </div>
                             
-                            // Submit button
                             <button 
                                 type="submit" 
                                 className="w-full px-6 py-3 bg-[#5C4033] text-white rounded-lg hover:bg-[#8B5A5A] transition-all duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed border border-[#6B4F4F]"
@@ -316,7 +300,6 @@ function ContactForm() {
                                 ) : 'Send Message'}
                             </button>
                             
-                            // Privacy notice
                             <p className="text-gray-300 text-sm text-center pt-2">
                                 Your information is protected and will only be used to respond to your inquiry.
                             </p>

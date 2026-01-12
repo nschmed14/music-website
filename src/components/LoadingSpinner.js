@@ -17,9 +17,7 @@ const LoadingSpinner = () => (
     className="min-h-screen flex items-center justify-center bg-black"
   >
     <div className="relative">
-      // Large outer spinning circle
       <div className="w-16 h-16 border-4 border-white/30 border-t-transparent rounded-full animate-spin"></div>
-      // Small inner spinning circle
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="w-8 h-8 border-2 border-white/60 border-t-transparent rounded-full animate-spin animate-reverse"></div>
       </div>

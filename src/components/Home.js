@@ -55,11 +55,9 @@ const Home = () => {
   }, [isMobile]);
 
   return (
-    // Main page container
     <div className="relative min-h-screen flex flex-col">
       <Header />
       
-      // Full-screen background image
       <div className="fixed inset-0 -z-10">
         <picture>
           <source srcSet="/assets/home.webp" type="image/webp" />
@@ -73,7 +71,6 @@ const Home = () => {
         </picture>
       </div>
 
-      // Animated signature overlay
       <div 
         className="absolute top-[5%] left-[5%] 
                    w-[90vw] max-w-[1050px] 
@@ -101,7 +98,6 @@ const Home = () => {
         </div>
       </div>
       
-      // Footer at bottom of page
       <div className="mt-auto">
         <Footer />
       </div>

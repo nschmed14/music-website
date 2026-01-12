@@ -79,7 +79,6 @@ const Header = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Update underline when page changes
   useEffect(() => {
     setUnderline(prev => ({ ...prev, opacity: 0 }));
     
@@ -90,7 +89,6 @@ const Header = () => {
     return () => clearTimeout(timer);
   }, [location.pathname, calculateUnderlinePosition]);
 
-  // Update underline when screen size changes
   useEffect(() => {
     setUnderline(prev => ({ ...prev, opacity: 0 }));
     
@@ -101,7 +99,6 @@ const Header = () => {
     return () => clearTimeout(timer);
   }, [windowWidth, windowHeight, calculateUnderlinePosition]);
 
-  // Set up underline after page loads
   useEffect(() => {
     const timer = setTimeout(() => {
       calculateUnderlinePosition();
@@ -110,12 +107,10 @@ const Header = () => {
     return () => clearTimeout(timer);
   }, [calculateUnderlinePosition]);
 
-  // Toggle mobile menu visibility
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  // Navigation links for all pages
   const navLinks = [
     { path: '/', name: 'Home' },
     { path: '/bio', name: 'Bio' },
@@ -126,7 +121,6 @@ const Header = () => {
   const isPortraitMode = windowHeight >= windowWidth;
   const isMobileLayout = windowWidth <= 1024 || isPortraitMode;
 
-  // Adjust styling based on screen size
   const getResponsiveValues = () => {
     if (windowWidth > 1920) {
       return {
@@ -240,10 +234,8 @@ const Header = () => {
   }`;
 
   return (
-    // Main header container
     <header className={headerClasses}>
       <div className="h-full flex items-center relative">
-        // Desktop navigation on left side
         {!isMobileLayout && (
           <div className={`w-1/3 flex justify-center items-start relative ${responsiveValues.navPaddingTop} ${responsiveValues.navMargin}`}>
             <nav 
@@ -251,7 +243,6 @@ const Header = () => {
               className={`flex relative ${responsiveValues.maxWidth}`} 
               style={{ gap: responsiveValues.gap }}
             >
-              // Animated underline for active link
               <motion.div
                 className="absolute bottom-0 h-1 bg-white rounded-full"
                 initial={{
@@ -283,7 +274,6 @@ const Header = () => {
                 key={`${location.pathname}-${underline.direction}-${windowWidth}`}
               />
               
-              // Navigation links
               {navLinks.map((link) => (
                 <NavLink 
                   key={link.path}
@@ -304,7 +294,6 @@ const Header = () => {
           </div>
         )}
 
-        // Mobile menu button
         {isMobileLayout && (
           <div className="absolute left-4 z-50 flex-shrink-0" style={{ 
             width: responsiveValues.isExtraSmallScreen ? '60px' : '80px' 
@@ -371,7 +360,6 @@ const Header = () => {
           </div>
         )}
 
-        // Centered logo
         <div className={`flex items-center ${
           !isMobileLayout 
             ? 'w-1/3 justify-center pl-0 pr-0'
@@ -414,17 +402,14 @@ const Header = () => {
           </div>
         </div>
 
-        // Right side spacing for mobile
         {isMobileLayout && (
           <div className="absolute right-4 flex-shrink-0" style={{ 
             width: responsiveValues.isExtraSmallScreen ? '60px' : '80px' 
           }}></div>
         )}
 
-        // Empty space for desktop layout balance
         {!isMobileLayout && <div className="w-1/3"></div>}
 
-        // Mobile menu overlay
         <AnimatePresence>
           {isMobileMenuOpen && (
             <>
@@ -437,7 +422,6 @@ const Header = () => {
                 onClick={toggleMobileMenu}
               />
               
-              // Mobile menu panel
               <motion.div 
                 initial={{ 
                   opacity: 0,
@@ -476,7 +460,6 @@ const Header = () => {
                     }
                   }}
                 >
-                  // Mobile navigation links
                   {navLinks.map((link, index) => (
                     <motion.div
                       key={link.path}
