@@ -1,13 +1,13 @@
 /**
  * @file Footer.js
  * @description Website footer component with social links and signature
- * @copyright 2025 Noah Schmedding. All Rights Reserved.
+ * @copyright 2024 Noah Schmedding. All Rights Reserved.
  * @confidential This file contains proprietary information. Do not distribute.
  */
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import signatureTB from '../assets/Signature TB (Inverted).png';
+import signatureTB from '../assets/Signature TB (Inverted).png'; // TB = Transparent Background
 
 const Footer = () => {
   const socialLinks = {
@@ -24,9 +24,13 @@ const Footer = () => {
       viewport={{ once: true }}
       className="bg-black text-white py-6 px-4 border-t border-gray-800 w-full"
     >
+      {/* Remove max-w-7xl mx-auto constraint */}
       <div className="w-full">
+        {/* Desktop Layout */}
         <div className="hidden md:flex items-center justify-between w-full px-4">
+          {/* Left - Social Icons */}
           <div className="flex items-center space-x-6">
+            {/* TikTok Icon */}
             <motion.a
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -40,7 +44,7 @@ const Footer = () => {
                 className="w-8 h-8" 
                 viewBox="0 0 24 24" 
                 fill="none" 
-                xmlns="http:
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path 
                   d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 10.692 6.33 6.33 0 0 0 10.857-4.424V8.687a8.182 8.182 0 0 0 4.773 1.526V7.159a4.831 4.831 0 0 1-1.003-.079 4.785 4.785 0 0 1-1.246-.394z"
@@ -56,6 +60,7 @@ const Footer = () => {
               </svg>
             </motion.a>
             
+            {/* YouTube Icon */}
             <motion.a
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -69,7 +74,7 @@ const Footer = () => {
                 className="w-8 h-8" 
                 viewBox="0 0 24 24" 
                 fill="none" 
-                xmlns="http:
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path 
                   d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418z" 
@@ -83,6 +88,7 @@ const Footer = () => {
               </svg>
             </motion.a>
             
+            {/* Instagram Icon */}
             <motion.a
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -96,7 +102,7 @@ const Footer = () => {
                 className="w-8 h-8" 
                 viewBox="0 0 24 24" 
                 fill="none" 
-                xmlns="http:
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <defs>
                   <linearGradient id="instagram-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -124,12 +130,14 @@ const Footer = () => {
             </motion.a>
           </div>
           
+          {/* Center - Signature */}
           <div className="absolute left-1/2 transform -translate-x-1/2">
             <div className="flex items-center gap-2">
               <span className="text-gray-400 text-sm font-light tracking-wider" style={{ fontFamily: "'Ringbearer', sans-serif" }}>
                 Website by
               </span>
               <motion.a
+                href="https://noahsax.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="cursor-pointer"
@@ -146,6 +154,7 @@ const Footer = () => {
             </div>
           </div>
           
+          {/* Right - Copyright */}
           <div>
             <p className="text-gray-500 text-sm whitespace-nowrap">
               © {new Date().getFullYear()} Noah Schmedding. All rights reserved.
@@ -153,8 +162,10 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Mobile Layout */}
         <div className="md:hidden flex flex-col items-center gap-6">
           <div className="flex items-center space-x-6">
+            {/* TikTok Icon with gradient */}
             <motion.a
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -168,7 +179,7 @@ const Footer = () => {
                 className="w-8 h-8" 
                 viewBox="0 0 24 24" 
                 fill="none" 
-                xmlns="http:
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path 
                   d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 10.692 6.33 6.33 0 0 0 10.857-4.424V8.687a8.182 8.182 0 0 0 4.773 1.526V7.159a4.831 4.831 0 0 1-1.003-.079 4.785 4.785 0 0 1-1.246-.394z"
@@ -183,6 +194,7 @@ const Footer = () => {
               </svg>
             </motion.a>
             
+            {/* YouTube Icon */}
             <motion.a
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -196,7 +208,7 @@ const Footer = () => {
                 className="w-8 h-8" 
                 viewBox="0 0 24 24" 
                 fill="none" 
-                xmlns="http:
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path 
                   d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418z" 
@@ -209,6 +221,7 @@ const Footer = () => {
               </svg>
             </motion.a>
             
+            {/* Instagram Icon with gradient */}
             <motion.a
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -222,7 +235,7 @@ const Footer = () => {
                 className="w-8 h-8" 
                 viewBox="0 0 24 24" 
                 fill="none" 
-                xmlns="http:
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <defs>
                   <linearGradient id="instagram-gradient-mobile" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -254,6 +267,7 @@ const Footer = () => {
               Website by
             </span>
             <motion.a
+              href="https://noahsax.com"
               target="_blank"
               rel="noopener noreferrer"
               className="cursor-pointer"
