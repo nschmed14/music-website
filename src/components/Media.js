@@ -12,7 +12,7 @@ import Footer from './Footer.js';
 const Media = () => {
   const [activeTab, setActiveTab] = useState('video');
 
-  // Optimized photo array with WebP support
+  // Photo gallery data
   const photos = useMemo(() => [
     { id: 1, src: '/assets/photos/photo1.jpg', webp: '/assets/photos/photo1.webp' },
     { id: 2, src: '/assets/photos/photo2.jpg', webp: '/assets/photos/photo2.webp' },
@@ -22,6 +22,7 @@ const Media = () => {
     { id: 6, src: '/assets/photos/photo6.jpg', webp: '/assets/photos/photo6.webp' },
   ], []);
 
+  // Video gallery data
   const videos = useMemo(() => [
     {
       id: 'qKee9bEtlto',
@@ -47,10 +48,11 @@ const Media = () => {
   ], []);
 
   return (
+    // Main page container
     <div className="relative min-h-screen flex flex-col">
       <Header />
 
-      {/* Background Image with WebP support */}
+      // Background image for media page
       <div className="fixed inset-0 -z-10">
         <picture>
           <source srcSet="/assets/media.webp" type="image/webp" />
@@ -69,8 +71,9 @@ const Media = () => {
         </picture>
       </div>
 
+      // Main content area
       <div className="pt-40 pb-16 px-4 md:px-8 flex-grow relative z-10">
-        {/* Tab Navigation */}
+        // Tab navigation for photos/videos
         <div className="flex justify-center mb-16">
           <button
             onClick={() => setActiveTab('photo')}
@@ -96,7 +99,7 @@ const Media = () => {
           </button>
         </div>
 
-        {/* Video Content */}
+        // Video gallery section
         {activeTab === 'video' && (
           <div className="max-w-6xl mx-auto space-y-12 lg:space-y-24">
             {videos.map((video, index) => (
@@ -104,7 +107,7 @@ const Media = () => {
                 key={video.id} 
                 className={`flex flex-col ${video.align === 'left' ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-stretch gap-0 overflow-hidden rounded-xl shadow-2xl`}
               >
-                {/* Video Embed */}
+                // YouTube video embed
                 <div className="w-full lg:w-2/3 relative">
                   <div className="relative" style={{ paddingBottom: '56.25%' }}>
                     <iframe
@@ -120,7 +123,7 @@ const Media = () => {
                   </div>
                 </div>
                 
-                {/* Description Box */}
+                // Video description panel
                 <div className="w-full lg:w-1/3 relative lg:block">
                   <div className="hidden lg:block absolute inset-0 bg-black/40 backdrop-blur-sm border-l border-r border-white/20">
                     <div className="h-full p-6 md:p-8 flex flex-col justify-center">
@@ -159,9 +162,10 @@ const Media = () => {
           </div>
         )}
 
-        {/* Photo Gallery */}
+        // Photo gallery section
         {activeTab === 'photo' && (
           <div className="max-w-7xl mx-auto px-4 md:px-8">
+            // Photo gallery title
             <h2 
               className="text-4xl font-light text-white mb-8 text-center"
               style={{ fontFamily: "'Ringbearer', sans-serif" }}
@@ -169,7 +173,7 @@ const Media = () => {
               Photo Gallery
             </h2>
 
-            {/* CSS Columns Masonry */}
+            // Masonry style photo grid
             <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
               {photos.length > 0 ? (
                 photos.map((photo) => (
@@ -192,6 +196,7 @@ const Media = () => {
                   </div>
                 ))
               ) : (
+                // Empty gallery placeholder
                 <div className="col-span-3">
                   <div className="bg-black/40 backdrop-blur-sm rounded-xl p-12 md:p-16 border border-white/20 text-center">
                     <p className="text-2xl text-white font-sans mb-4">
@@ -204,23 +209,11 @@ const Media = () => {
                 </div>
               )}
             </div>
-
-            {/* Instructions for adding photos */}
-            {photos.length === 0 && (
-              <div className="mt-12 bg-black/20 rounded-xl p-6 max-w-3xl mx-auto">
-                <h3 className="text-xl text-white mb-4 font-sans font-medium">How to Add Your Photos:</h3>
-                <ol className="text-gray-300 space-y-2 ml-4 list-decimal font-sans">
-                  <li>Add your photos to <code className="bg-black/40 px-2 py-1 rounded">public/assets/photos/</code></li>
-                  <li>Update the <code className="bg-black/40 px-2 py-1 rounded">photos</code> array above with your photo details</li>
-                  <li>Each photo needs: <code className="bg-black/40 px-2 py-1 rounded">id</code> and <code className="bg-black/40 px-2 py-1 rounded">src</code> (path)</li>
-                </ol>
-              </div>
-            )}
           </div>
         )}
       </div>
       
-      {/* Footer */}
+      // Footer section
       <div className="mt-auto relative z-10">
         <Footer />
       </div>

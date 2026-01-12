@@ -1,18 +1,29 @@
+/**
+ * @file App.css
+ * @description Global CSS styles for the application
+ * @copyright 2025 Noah Schmedding. All Rights Reserved.
+ * @confidential This file contains proprietary information. Do not distribute.
+ */
+
+/* Main application container */
 .App {
   text-align: center;
 }
 
+/* Application logo styling */
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
+/* Logo spinning animation */
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
 
+/* Application header styling */
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -24,10 +35,12 @@
   color: white;
 }
 
+/* Link styling */
 .App-link {
   color: #61dafb;
 }
 
+/* Logo spinning animation definition */
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

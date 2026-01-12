@@ -49,7 +49,7 @@ exports.handler = async (event, context) => {
                 from_name: name,
                 from_email: email,
                 message: message,
-                to_email: 'noahschmedding@gmail.com', // Your email
+                to_email: 'noahschmedding@gmail.com',
                 reply_to: email
             },
             {

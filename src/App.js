@@ -1,7 +1,7 @@
 /**
  * @file App.js
  * @description Main application component with routing and page transitions
- * @copyright 2024 Noah Schmedding. All Rights Reserved.
+ * @copyright 2025 Noah Schmedding. All Rights Reserved.
  * @confidential This file contains proprietary information. Do not distribute.
  */
 
@@ -11,13 +11,13 @@ import { AnimatePresence, motion } from 'framer-motion';
 import LoadingSpinner from './components/LoadingSpinner';
 import ErrorBoundary from './components/ErrorBoundary';
 
-// Lazy load components for better performance
+// Load pages only when needed
 const Home = lazy(() => import('./components/Home'));
 const Bio = lazy(() => import('./components/Bio'));
 const Media = lazy(() => import('./components/Media'));
 const Contact = lazy(() => import('./components/Contact'));
 
-// Main layout wrapper
+// Main page layout container
 const MainLayout = ({ children }) => (
   <div className="min-h-screen flex flex-col">
     <main className="flex-grow">
@@ -26,7 +26,7 @@ const MainLayout = ({ children }) => (
   </div>
 );
 
-// 404 Component with proper navigation
+// 404 error page component
 const NotFound = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-black p-4">
@@ -43,7 +43,7 @@ const NotFound = () => {
   );
 };
 
-// Smooth fade transition that doesn't interfere with backgrounds
+// Page transition animation
 const FadeTransition = ({ children }) => {
   return (
     <motion.div
@@ -61,24 +61,28 @@ const FadeTransition = ({ children }) => {
   );
 };
 
-// Main App component
+// Main application component
 function App() {
   const location = useLocation();
 
   return (
+    // Wrap everything in error boundary
     <ErrorBoundary>
-      {/* Simple black background behind everything to prevent white flash */}
+      // Background to prevent white flash
       <div className="fixed inset-0 bg-black -z-50"></div>
       
-      {/* Main content area */}
       <div className="relative min-h-screen">
+        // Show loading spinner while pages load
         <Suspense fallback={
           <div className="fixed inset-0 bg-black z-50">
             <LoadingSpinner />
           </div>
         }>
+          // Animate page transitions
           <AnimatePresence mode="wait" initial={false}>
+            // Define all page routes
             <Routes location={location} key={location.pathname}>
+              // Home page route
               <Route path="/" element={
                 <MainLayout>
                   <FadeTransition>
@@ -86,6 +90,7 @@ function App() {
                   </FadeTransition>
                 </MainLayout>
               } />
+              // Biography page route
               <Route path="/bio" element={
                 <MainLayout>
                   <FadeTransition>
@@ -93,6 +98,7 @@ function App() {
                   </FadeTransition>
                 </MainLayout>
               } />
+              // Media page route
               <Route path="/media" element={
                 <MainLayout>
                   <FadeTransition>
@@ -100,6 +106,7 @@ function App() {
                   </FadeTransition>
                 </MainLayout>
               } />
+              // Contact page route
               <Route path="/contact" element={
                 <MainLayout>
                   <FadeTransition>
@@ -107,7 +114,7 @@ function App() {
                   </FadeTransition>
                 </MainLayout>
               } />
-              {/* 404 Route - Must be last */}
+              // 404 page for all other routes
               <Route path="*" element={
                 <FadeTransition>
                   <NotFound />
@@ -121,7 +128,7 @@ function App() {
   );
 }
 
-// App wrapper with Router
+// Wrap app with router for navigation
 const AppWrapper = () => (
   <Router>
     <App />

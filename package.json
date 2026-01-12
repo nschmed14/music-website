@@ -22,15 +22,14 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false DISABLE_ESLINT_PLUGIN=true react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src --ext .js,.jsx",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "build:analyze": "npm run build && npm run analyze",
-    "build:prod": "GENERATE_SOURCEMAP=false DISABLE_ESLINT_PLUGIN=true INLINE_RUNTIME_CHUNK=false react-scripts build"
+    "build:analyze": "npm run build && npm run analyze"
   },
   "eslintConfig": {
     "extends": [
@@ -64,7 +63,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR_USERNAME/music-website.git",
+    "url": "https://github.com/nschmed14/music-website.git",
     "private": true
   }
 }

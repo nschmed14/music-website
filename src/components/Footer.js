@@ -1,13 +1,13 @@
 /**
  * @file Footer.js
  * @description Website footer component with social links and signature
- * @copyright 2024 Noah Schmedding. All Rights Reserved.
+ * @copyright 2025 Noah Schmedding. All Rights Reserved.
  * @confidential This file contains proprietary information. Do not distribute.
  */
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import signatureTB from '../assets/Signature TB (Inverted).png'; // TB = Transparent Background
+import signatureTB from '../assets/Signature TB (Inverted).png';
 
 const Footer = () => {
   const socialLinks = {
@@ -17,6 +17,7 @@ const Footer = () => {
   };
 
   return (
+    // Main footer with fade-in animation
     <motion.footer 
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
@@ -24,13 +25,12 @@ const Footer = () => {
       viewport={{ once: true }}
       className="bg-black text-white py-6 px-4 border-t border-gray-800 w-full"
     >
-      {/* Remove max-w-7xl mx-auto constraint */}
       <div className="w-full">
-        {/* Desktop Layout */}
+        // Desktop layout with three sections
         <div className="hidden md:flex items-center justify-between w-full px-4">
-          {/* Left - Social Icons */}
+          // Left side - Social media icons
           <div className="flex items-center space-x-6">
-            {/* TikTok Icon */}
+            // TikTok social link
             <motion.a
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -60,7 +60,7 @@ const Footer = () => {
               </svg>
             </motion.a>
             
-            {/* YouTube Icon */}
+            // YouTube social link
             <motion.a
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -88,7 +88,7 @@ const Footer = () => {
               </svg>
             </motion.a>
             
-            {/* Instagram Icon */}
+            // Instagram social link
             <motion.a
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -130,7 +130,7 @@ const Footer = () => {
             </motion.a>
           </div>
           
-          {/* Center - Signature */}
+          // Center - Website by signature
           <div className="absolute left-1/2 transform -translate-x-1/2">
             <div className="flex items-center gap-2">
               <span className="text-gray-400 text-sm font-light tracking-wider" style={{ fontFamily: "'Ringbearer', sans-serif" }}>
@@ -154,7 +154,7 @@ const Footer = () => {
             </div>
           </div>
           
-          {/* Right - Copyright */}
+          // Right side - Copyright text
           <div>
             <p className="text-gray-500 text-sm whitespace-nowrap">
               © {new Date().getFullYear()} Noah Schmedding. All rights reserved.
@@ -162,10 +162,10 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Mobile Layout */}
+        // Mobile layout stacked vertically
         <div className="md:hidden flex flex-col items-center gap-6">
+          // Social media icons row
           <div className="flex items-center space-x-6">
-            {/* TikTok Icon with gradient */}
             <motion.a
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -194,7 +194,6 @@ const Footer = () => {
               </svg>
             </motion.a>
             
-            {/* YouTube Icon */}
             <motion.a
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -221,7 +220,6 @@ const Footer = () => {
               </svg>
             </motion.a>
             
-            {/* Instagram Icon with gradient */}
             <motion.a
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -262,6 +260,7 @@ const Footer = () => {
             </motion.a>
           </div>
           
+          // Signature in mobile view
           <div className="flex items-center gap-2">
             <span className="text-gray-400 text-sm font-light tracking-wider" style={{ fontFamily: "'Ringbearer', sans-serif" }}>
               Website by
@@ -283,6 +282,7 @@ const Footer = () => {
             </motion.a>
           </div>
           
+          // Copyright in mobile view
           <p className="text-gray-500 text-sm">
             © {new Date().getFullYear()} Noah Schmedding. All rights reserved.
           </p>

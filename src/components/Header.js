@@ -1,7 +1,7 @@
 /**
  * @file Header.js
  * @description Navigation header component with responsive design
- * @copyright 2024 Noah Schmedding. All Rights Reserved.
+ * @copyright 2025 Noah Schmedding. All Rights Reserved.
  * @confidential This file contains proprietary information. Do not distribute.
  */
 
@@ -33,7 +33,7 @@ const Header = () => {
     '/contact': 3
   }), []);
 
-  // Function to calculate and set underline position
+  // Calculate position of navigation underline
   const calculateUnderlinePosition = useCallback(() => {
     if (!navRef.current || windowWidth <= 1024 || windowHeight > windowWidth) {
       return;
@@ -54,7 +54,6 @@ const Header = () => {
     const linkWidth = activeLink.offsetWidth;
     const linkLeft = activeLink.offsetLeft;
     
-    // Calculate position relative to the nav container
     const textCenterX = linkLeft + (linkWidth / 2);
     const underlineLeft = textCenterX - (tempWidth / 2);
 
@@ -66,7 +65,7 @@ const Header = () => {
     });
   }, [location.pathname, windowWidth, windowHeight, linkOrder]);
 
-  // Handle window resize
+  // Track window size changes
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -80,12 +79,10 @@ const Header = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Calculate underline position when route changes
+  // Update underline when page changes
   useEffect(() => {
-    // Reset opacity to trigger animation
     setUnderline(prev => ({ ...prev, opacity: 0 }));
     
-    // Small delay to ensure DOM is updated, then calculate position
     const timer = setTimeout(() => {
       calculateUnderlinePosition();
     }, 10);
@@ -93,12 +90,10 @@ const Header = () => {
     return () => clearTimeout(timer);
   }, [location.pathname, calculateUnderlinePosition]);
 
-  // Calculate underline position when window dimensions change
+  // Update underline when screen size changes
   useEffect(() => {
-    // Reset opacity to trigger animation
     setUnderline(prev => ({ ...prev, opacity: 0 }));
     
-    // Small delay to ensure layout is stable, then calculate position
     const timer = setTimeout(() => {
       calculateUnderlinePosition();
     }, 100);
@@ -106,7 +101,7 @@ const Header = () => {
     return () => clearTimeout(timer);
   }, [windowWidth, windowHeight, calculateUnderlinePosition]);
 
-  // Initial calculation after mount
+  // Set up underline after page loads
   useEffect(() => {
     const timer = setTimeout(() => {
       calculateUnderlinePosition();
@@ -115,10 +110,12 @@ const Header = () => {
     return () => clearTimeout(timer);
   }, [calculateUnderlinePosition]);
 
+  // Toggle mobile menu visibility
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  // Navigation links for all pages
   const navLinks = [
     { path: '/', name: 'Home' },
     { path: '/bio', name: 'Bio' },
@@ -129,6 +126,7 @@ const Header = () => {
   const isPortraitMode = windowHeight >= windowWidth;
   const isMobileLayout = windowWidth <= 1024 || isPortraitMode;
 
+  // Adjust styling based on screen size
   const getResponsiveValues = () => {
     if (windowWidth > 1920) {
       return {
@@ -191,7 +189,6 @@ const Header = () => {
         maxWidth: 'max-w-xs'
       };
     } else {
-      // Mobile layout with dynamic sizing
       if (windowWidth >= 768) {
         return {
           fontSize: 'text-base',
@@ -219,19 +216,18 @@ const Header = () => {
           logoHeight: '40px'
         };
       } else {
-        // For screens smaller than 480px, maintain the size from 480+ breakpoint
         return {
           fontSize: 'text-base',
           gap: '2rem',
           paddingX: 'px-2',
           paddingBottom: 'pb-4',
           letterSpacing: '0.08em',
-          logoSize: 'h-10 max-h-10', // Same as 480+ breakpoint
+          logoSize: 'h-10 max-h-10',
           navMargin: 'ml-0',
           navPaddingTop: 'pt-0',
           maxWidth: 'max-w-none',
-          logoHeight: '40px', // Same as 480+ breakpoint
-          isExtraSmallScreen: true // Flag for extra small screens
+          logoHeight: '40px',
+          isExtraSmallScreen: true
         };
       }
     }
@@ -244,9 +240,10 @@ const Header = () => {
   }`;
 
   return (
+    // Main header container
     <header className={headerClasses}>
       <div className="h-full flex items-center relative">
-        {/* Desktop Navigation - LEFT SIDE */}
+        // Desktop navigation on left side
         {!isMobileLayout && (
           <div className={`w-1/3 flex justify-center items-start relative ${responsiveValues.navPaddingTop} ${responsiveValues.navMargin}`}>
             <nav 
@@ -254,6 +251,7 @@ const Header = () => {
               className={`flex relative ${responsiveValues.maxWidth}`} 
               style={{ gap: responsiveValues.gap }}
             >
+              // Animated underline for active link
               <motion.div
                 className="absolute bottom-0 h-1 bg-white rounded-full"
                 initial={{
@@ -285,6 +283,7 @@ const Header = () => {
                 key={`${location.pathname}-${underline.direction}-${windowWidth}`}
               />
               
+              // Navigation links
               {navLinks.map((link) => (
                 <NavLink 
                   key={link.path}
@@ -305,7 +304,7 @@ const Header = () => {
           </div>
         )}
 
-        {/* Mobile Menu Button - appears in mobile layout */}
+        // Mobile menu button
         {isMobileLayout && (
           <div className="absolute left-4 z-50 flex-shrink-0" style={{ 
             width: responsiveValues.isExtraSmallScreen ? '60px' : '80px' 
@@ -317,7 +316,6 @@ const Header = () => {
             >
               <div className="w-8 h-8 flex items-center justify-center">
                 <div className="relative w-6 h-5">
-                  {/* Top line */}
                   <motion.span 
                     className="absolute top-0 left-0 h-0.5 bg-white w-full rounded-full"
                     animate={isMobileMenuOpen ? { 
@@ -336,7 +334,6 @@ const Header = () => {
                       duration: 0.3 
                     }}
                   />
-                  {/* Middle line */}
                   <motion.span 
                     className="absolute top-1/2 left-0 h-0.5 bg-white w-full rounded-full -translate-y-1/2"
                     animate={isMobileMenuOpen ? { 
@@ -350,7 +347,6 @@ const Header = () => {
                       duration: 0.2 
                     }}
                   />
-                  {/* Bottom line */}
                   <motion.span 
                     className="absolute bottom-0 left-0 h-0.5 bg-white w-full rounded-full"
                     animate={isMobileMenuOpen ? { 
@@ -375,7 +371,7 @@ const Header = () => {
           </div>
         )}
 
-        {/* Centered Logo - MIDDLE with improved constraints */}
+        // Centered logo
         <div className={`flex items-center ${
           !isMobileLayout 
             ? 'w-1/3 justify-center pl-0 pr-0'
@@ -391,9 +387,9 @@ const Header = () => {
               style={{
                 maxWidth: isMobileLayout 
                   ? responsiveValues.isExtraSmallScreen 
-                    ? `calc(100vw - 120px)` // 60px each side for extra small screens
-                    : `calc(100vw - 160px)` // 80px each side for normal mobile
-                  : '33vw' // Max 1/3 of viewport width on desktop
+                    ? `calc(100vw - 120px)`
+                    : `calc(100vw - 160px)`
+                  : '33vw'
               }}
             >
               <img 
@@ -410,7 +406,7 @@ const Header = () => {
                     ? responsiveValues.logoHeight || 
                       (windowWidth >= 768 ? '48px' 
                         : windowWidth >= 480 ? '40px' 
-                        : '40px') // Always 40px for smallest screens
+                        : '40px')
                     : '96px'
                 }}
               />
@@ -418,21 +414,20 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Right side spacing for mobile layout */}
+        // Right side spacing for mobile
         {isMobileLayout && (
           <div className="absolute right-4 flex-shrink-0" style={{ 
             width: responsiveValues.isExtraSmallScreen ? '60px' : '80px' 
           }}></div>
         )}
 
-        {/* Empty div for desktop layout balance - RIGHT SIDE */}
+        // Empty space for desktop layout balance
         {!isMobileLayout && <div className="w-1/3"></div>}
 
-        {/* Mobile Menu Overlay - PROFESSIONAL ROW-BASED DESIGN */}
+        // Mobile menu overlay
         <AnimatePresence>
           {isMobileMenuOpen && (
             <>
-              {/* Subtle overlay background */}
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -442,7 +437,7 @@ const Header = () => {
                 onClick={toggleMobileMenu}
               />
               
-              {/* Menu container - Clean slate background */}
+              // Mobile menu panel
               <motion.div 
                 initial={{ 
                   opacity: 0,
@@ -469,7 +464,6 @@ const Header = () => {
                   maxWidth: '85vw'
                 }}
               >
-                {/* Menu content - Professional row layout */}
                 <motion.nav 
                   className="flex flex-col"
                   initial="hidden"
@@ -482,6 +476,7 @@ const Header = () => {
                     }
                   }}
                 >
+                  // Mobile navigation links
                   {navLinks.map((link, index) => (
                     <motion.div
                       key={link.path}
@@ -515,7 +510,6 @@ const Header = () => {
                       >
                         {({ isActive }) => (
                           <>
-                            {/* Active indicator line */}
                             {isActive && (
                               <motion.div 
                                 className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/10 to-transparent"
@@ -525,16 +519,13 @@ const Header = () => {
                               />
                             )}
                             
-                            {/* Hover effect */}
                             <div className={`absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700 ${
                               isActive ? 'opacity-50' : 'opacity-30'
                             }`} />
                             
-                            {/* Link content */}
                             <div className="relative flex items-center">
                               <span className="flex-1">{link.name}</span>
                               
-                              {/* Arrow indicator for active/hover */}
                               <motion.svg 
                                 className={`w-5 h-5 ml-2 ${
                                   isActive ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]'
@@ -564,7 +555,6 @@ const Header = () => {
                   ))}
                 </motion.nav>
                 
-                {/* Subtle decorative element */}
                 <div className="absolute bottom-0 right-0 w-24 h-1 bg-gradient-to-l from-[#D4AF37]/30 via-[#D4AF37]/10 to-transparent"></div>
               </motion.div>
             </>

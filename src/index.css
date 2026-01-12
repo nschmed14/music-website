@@ -1,8 +1,16 @@
-/* Tailwind Directives - REQUIRED */
+/**
+ * @file index.css
+ * @description Global CSS styles and Tailwind configuration
+ * @copyright 2025 Noah Schmedding. All Rights Reserved.
+ * @confidential This file contains proprietary information. Do not distribute.
+ */
+
+/* Required Tailwind CSS directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Base HTML and body styles */
 @layer base {
   html {
     @apply scroll-smooth;
@@ -10,48 +18,58 @@
   body {
     @apply bg-background text-text antialiased;
   }
+  /* Custom font for headings */
   h1, h2, h3 {
   font-family: 'Ringbearer', sans-serif;
   }
 
-  /* Smooth image transitions for background images */
+  /* Smooth image loading transitions */
   img {
     @apply transition-opacity duration-500 ease-in-out;
   }
 }
 
+/* Reusable component styles */
 @layer components {
+  /* Navigation link styling */
   .nav-link {
     @apply block py-2 px-4 text-accent-3 hover:text-accent-1 transition-colors;
   }
+  /* Image frame styling */
   .image-frame {
     @apply rounded-lg shadow-md overflow-hidden border-2 border-accent-2;
   }
 
-  /* New component for background image containers */
+  /* Background image container styles */
   .bg-image-container {
     @apply fixed inset-0 -z-10 overflow-hidden;
   }
+  /* Background image overlay */
   .bg-image-overlay {
     @apply absolute inset-0 bg-black bg-opacity-40;
   }
+  /* Background image styling */
   .bg-image {
     @apply w-full h-full object-cover;
   }
 }
 
+/* Custom utility classes */
 @layer utilities {
+  /* Balanced text wrapping */
   .text-balance {
     text-wrap: balance;
   }
+  /* Hero section clip path */
   .clip-path-hero {
     clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
   }
 
-  /* New utilities for page transitions */
+  /* Page transition animations */
   .page-fade {
     animation: fadeIn 0.5s ease-in-out;
   }
+  /* Animation delay classes */
   .delay-100 {
     animation-delay: 100ms;
   }
@@ -60,13 +78,13 @@
   }
 }
 
-/* Animation keyframes */
+/* Fade-in animation definition */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-/* Optional: Prefers-reduced-motion media query */
+/* Reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   img,
   .page-fade {
@@ -75,24 +93,27 @@
   }
 }
 
+/* Signature drawing animation */
 @keyframes draw {
   to {
     stroke-dashoffset: 0;
   }
 }
 
+/* Signature path styling */
 .signature-path {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
 }
 
-/* Optional: Add a writing sound effect */
+/* Writing sound effect animation */
 @keyframes pencil-sound {
   0% { opacity: 0.3; }
   50% { opacity: 0.7; }
   100% { opacity: 0; }
 }
 
+/* Pencil writing effect */
 .pencil-effect::after {
   content: '';
   position: absolute;
@@ -103,7 +124,7 @@
   animation: pencil-sound 0.3s infinite alternate;
 }
 
-/* Simple mobile performance fix */
+/* Mobile performance optimization */
 @media (max-width: 768px) {
   .lottie-container {
     transform: translateZ(0);
