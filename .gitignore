@@ -48,3 +48,24 @@ Thumbs.db
 *.swo
 # Local Netlify folder
 .netlify
+.env*
+
+# Environment variables
+.env.local
+.env.development
+.env.production
+.env.test
+.env
+
+# Build directories
+build/
+dist/
+node_modules/
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+.env*
