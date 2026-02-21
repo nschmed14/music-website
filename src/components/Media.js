@@ -35,14 +35,14 @@ const Media = () => {
       id: 'EtzSO-1u9YU',
       title: 'Concerto for Alto Saxophone and Band I. Energetic',
       composer: 'Paul Creston',
-      description: 'Recorded in November of 2023 in preparation for my masters degree audition cycle\n\nFeaturing:\nPiano - John Flannery',
+      description: 'Recorded in November of 2023 in preparation for my masters degree audition cycle\n\nFeaturing:\nPiano - Patrick Flannery',
       align: 'left'
     },
     {
       id: '9-_qDosZBzg',
       title: 'Concerto for Alto Saxophone and Band III. Rhythmic',
       composer: 'Paul Creston',
-      description: 'Recorded in November of 2023 in preparation for my masters degree audition cycle\n\nFeaturing:\nPiano - John Flannery',
+      description: 'Recorded in November of 2023 in preparation for my masters degree audition cycle\n\nFeaturing:\nPiano - Patrick Flannery',
       align: 'right'
     },
   ], []);
