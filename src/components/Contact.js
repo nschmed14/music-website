@@ -6,6 +6,7 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
+import Cal, { getCalApi } from '@calcom/embed-react';
 import Header from './Header.js';
 import Footer from './Footer.js';
 
@@ -15,6 +16,8 @@ function ContactForm() {
         email: '',
         message: ''
     });
+    const calNamespace = 'saxophone-lesson';
+    const calLink = 'noah-schmedding/saxophone-lesson';
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -179,6 +182,17 @@ function ContactForm() {
         }
     };
 
+    useEffect(() => {
+        (async function () {
+            try {
+                const cal = await getCalApi({ namespace: calNamespace });
+                cal('ui', { hideEventTypeDetails: false, layout: 'month_view' });
+            } catch (err) {
+                console.error('Cal.com embed init failed:', err);
+            }
+        })();
+    }, [calNamespace]);
+
     return (
         <div className="relative min-h-screen flex flex-col">
             <Header />
@@ -219,6 +233,53 @@ function ContactForm() {
                             <li>Student's primary instrument</li>
                             <li>How many years the student has been playing</li>
                         </ul>
+                    </div>
+
+                    <div className="bg-[#5C4033]/80 backdrop-blur-md border-2 border-black rounded-xl p-6 mb-6">
+                        <h2 className="text-3xl md:text-4xl font-light mb-3 text-white">
+                            Schedule a Lesson
+                        </h2>
+                        <p className="text-white/85 mb-5">
+                            Choose an available time directly in my Cal.com calendar.
+                        </p>
+                        <div className="rounded-3xl overflow-hidden border border-white/10 min-h-[560px]">
+                            <Cal
+                                namespace={calNamespace}
+                                calLink={calLink}
+                                style={{ width: '100%', minHeight: '560px', overflow: 'auto' }}
+                                config={{ layout: 'month_view', useSlotsViewOnSmallScreen: 'true' }}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="bg-[#5C4033]/80 backdrop-blur-md border-2 border-black rounded-xl p-6 mb-6">
+                        <h2 className="text-3xl md:text-4xl font-light mb-3 text-white">
+                            Secure Lesson Payments
+                        </h2>
+                        <p className="text-white/85 mb-5">
+                            Pay for lessons easily via Stripe or Venmo. Replace these sample links with your live payment URLs.
+                        </p>
+                        <div className="grid gap-4 sm:grid-cols-2">
+                            <a
+                                href="https://buy.stripe.com/test_..."
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center justify-center px-6 py-4 rounded-xl bg-white/95 text-slate-950 font-semibold hover:bg-white transition"
+                            >
+                                Pay with Stripe
+                            </a>
+                            <a
+                                href="https://venmo.com/yourhandle?txn=pay&amount=50&note=Music+Lesson"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center justify-center px-6 py-4 rounded-xl bg-[#3D95CE] text-white font-semibold hover:bg-[#2B7EBE] transition"
+                            >
+                                Pay with Venmo
+                            </a>
+                        </div>
+                        <p className="text-sm text-gray-300 mt-4">
+                            Note: update the Stripe link to your real checkout link and replace the Venmo handle/amount as needed.
+                        </p>
                     </div>
                     
                     {submitted && (
