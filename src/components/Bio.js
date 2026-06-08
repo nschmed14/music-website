@@ -44,11 +44,11 @@ export default function Bio() {
           <div className="bg-[#5C4033]/80 backdrop-blur-md border-2 border-black rounded-xl p-6 md:p-8 max-w-3xl">
             <div className="text-lg md:text-xl font-light leading-relaxed text-white whitespace-pre-line font-sans space-y-6">
               <p>
-                Noah Schmedding is a saxophonist and educator based in Madison, Wisconsin, where he is pursuing a Master of Music in Saxophone Performance at the University of Wisconsin-Madison. Noah's career in saxophone performance inlcudes many significant engagements with both chamber music as well as large ensembles including a tour through Central Europe as principal saxophonist with the University of Northern Iowa Wind Ensemble, as well as a season with the UW-Madison Wind Ensemble.
+                Noah Schmedding is a saxophonist and educator based in Madison, Wisconsin, where he received a Master of Music in Saxophone Performance at the University of Wisconsin-Madison. Noah's career in saxophone performance inlcudes many significant engagements with both chamber music as well as large ensembles including a tour through Central Europe as principal saxophonist with the University of Northern Iowa Wind Ensemble, as well as a season with the UW-Madison Wind Ensemble.
               </p>
               
               <p>
-                As a dedicated chamber musician, Noah currently serves as the alto chair with the Cardinal Saxophone Quartet, and previously served as the soprano chair with the Juniper Saxophone Quartet. In addition to his career in performance, Noah is also an active teacher throughout the greater Madison area, offering private instruction to middle and high school students.
+                As a dedicated chamber musician, Noah has served as the soprano chair with the Juniper Saxophone Quartet. In addition to his career in performance, Noah is also an active teacher throughout the greater Madison area, offering private instruction to middle and high school students.
               </p>
               
               <p>
