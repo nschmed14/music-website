@@ -1,31 +1,16 @@
 {
   "short_name": "Noah Schmedding",
   "name": "Noah Schmedding - Saxophonist",
-  "description": "Saxophonist and educator offering private lessons and performances. Master's candidate at UW-Madison.",
+  "description": "Saxophonist and educator offering private lessons and performances.",
   "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "any maskable"
-    }
+    { "src": "favicon.ico", "sizes": "64x64 32x32 24x24 16x16", "type": "image/x-icon" },
+    { "src": "logo192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "logo512.png", "type": "image/png", "sizes": "512x512" }
   ],
   "start_url": "/",
-  "display": "standalone",
-  "theme_color": "#2C423F",
-  "background_color": "#F5F5F5",
-  "orientation": "portrait-primary",
   "scope": "/",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#000000",
   "categories": ["music", "education", "entertainment"]
 }

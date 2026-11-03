@@ -1,93 +1,73 @@
-// api/contact.js - USING EMAILJS NODE SDK
+// Netlify function: sends contact form submissions through EmailJS.
+//
+// Environment variables (Netlify → Site settings → Environment variables):
+//   REACT_APP_EMAILJS_SERVICE_ID, REACT_APP_EMAILJS_TEMPLATE_ID,
+//   REACT_APP_EMAILJS_PUBLIC_KEY, EMAILJS_PRIVATE_KEY   (required)
+//   RECAPTCHA_SECRET_KEY                                (optional; enables reCAPTCHA v3 verification)
 const emailjs = require('@emailjs/nodejs');
 
-exports.handler = async (event, context) => {
-    console.log('=== CONTACT FUNCTION CALLED ===');
-    console.log('HTTP Method:', event.httpMethod);
-    
-    // Only allow POST
-    if (event.httpMethod !== 'POST') {
-        return {
-            statusCode: 405,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ error: 'Method not allowed' })
-        };
+const TO_EMAIL = 'noahschmedding@gmail.com';
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MIN_RECAPTCHA_SCORE = 0.5;
+
+const reply = (statusCode, body) => ({
+  statusCode,
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(body),
+});
+
+const clean = (value, max) =>
+  typeof value === 'string' ? value.replace(/<[^>]*>/g, '').trim().slice(0, max) : '';
+
+async function verifyRecaptcha(token, ip) {
+  const secret = process.env.RECAPTCHA_SECRET_KEY;
+  if (!secret) return true; // verification not configured
+  if (!token) return false;
+
+  const params = new URLSearchParams({ secret, response: token });
+  if (ip) params.set('remoteip', ip);
+  const res = await fetch('https://www.google.com/recaptcha/api/siteverify', { method: 'POST', body: params });
+  const data = await res.json();
+  return data.success && data.action === 'contact_submit' && data.score >= MIN_RECAPTCHA_SCORE;
+}
+
+exports.handler = async (event) => {
+  if (event.httpMethod !== 'POST') return reply(405, { error: 'Method not allowed' });
+
+  let body;
+  try {
+    body = JSON.parse(event.body || '{}');
+  } catch {
+    return reply(400, { error: 'Invalid request.' });
+  }
+
+  // Honeypot filled in → almost certainly a bot. Pretend it worked.
+  if (body.company) return reply(200, { success: true });
+
+  const name = clean(body.name, 100);
+  const email = clean(body.email, 254);
+  const message = clean(body.message, 2000);
+
+  if (!name || !email || !message) return reply(400, { error: 'Please fill in all fields.' });
+  if (!EMAIL_RE.test(email)) return reply(400, { error: 'Please enter a valid email address.' });
+  if (message.length < 10) return reply(400, { error: 'Your message must be at least 10 characters.' });
+
+  try {
+    const ip = event.headers?.['x-nf-client-connection-ip'];
+    if (!(await verifyRecaptcha(body.recaptchaToken, ip))) {
+      return reply(400, { error: 'Spam check failed. Please refresh the page and try again.' });
     }
 
-    try {
-        console.log('Parsing request body...');
-        const body = JSON.parse(event.body);
-        const { name, email, message } = body;
-        console.log('Received:', { name, email, message: message.substring(0, 50) + '...' });
-        
-        // Basic validation
-        if (!name || !email || !message) {
-            console.log('Validation failed: missing fields');
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ error: 'All fields are required' })
-            };
-        }
+    await emailjs.send(
+      process.env.REACT_APP_EMAILJS_SERVICE_ID,
+      process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+      { from_name: name, from_email: email, message, to_email: TO_EMAIL, reply_to: email },
+      { publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY, privateKey: process.env.EMAILJS_PRIVATE_KEY }
+    );
 
-        // Validate email format
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            console.log('Validation failed: invalid email');
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ error: 'Invalid email format' })
-            };
-        }
-
-        console.log('All validation passed, sending via EmailJS Node SDK...');
-        
-        // Send email using EmailJS Node.js SDK
-        const result = await emailjs.send(
-            process.env.REACT_APP_EMAILJS_SERVICE_ID,
-            process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-            {
-                from_name: name,
-                from_email: email,
-                message: message,
-                to_email: 'noahschmedding@gmail.com',
-                reply_to: email
-            },
-            {
-                publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY,
-                privateKey: process.env.EMAILJS_PRIVATE_KEY
-            }
-        );
-
-        console.log('✅ Email sent successfully! EmailJS response:', result);
-        
-        return {
-            statusCode: 200,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                success: true, 
-                message: 'Thank you! Your message has been sent successfully.'
-            })
-        };
-
-    } catch (error) {
-        console.error('❌ Contact form error:', error);
-        
-        // Provide more specific error messages
-        let errorMessage = 'Unable to send your message. Please try again later.';
-        
-        if (error.message.includes('Invalid private key')) {
-            errorMessage = 'Email service configuration error. Please contact site administrator.';
-        } else if (error.message.includes('Invalid template')) {
-            errorMessage = 'Email template error. Please contact site administrator.';
-        }
-        
-        return {
-            statusCode: 500,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                error: errorMessage,
-                debug: process.env.NODE_ENV === 'development' ? error.message : undefined
-            })
-        };
-    }
+    return reply(200, { success: true });
+  } catch (error) {
+    console.error('Contact form error:', error?.text || error?.message || error);
+    return reply(500, { error: 'Unable to send your message right now. Please try again later.' });
+  }
 };

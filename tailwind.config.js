@@ -1,60 +1,34 @@
 /**
  * @file tailwind.config.js
- * @description Tailwind CSS configuration file
  * @copyright 2025 Noah Schmedding. All Rights Reserved.
- * @confidential This file contains proprietary information. Do not distribute.
  */
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // Files to scan for Tailwind classes
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-    "./public/index.html"
-  ],
-  // Theme customization
+  content: ['./src/**/*.{js,jsx}', './public/index.html'],
   theme: {
     extend: {
-      // Custom color palette
+      screens: {
+        // Full desktop layout: wide AND landscape. Portrait tablets and
+        // landscape phones get the compact (hamburger) layout.
+        desk: { raw: '(min-width: 1024px) and (orientation: landscape)' },
+      },
       colors: {
-        background: "#0a0a0a",
-        text: "#e5e5e5",
-        accent: {
-          1: "#5C4033",
-          2: "#8B5A5A",
-          3: "#2C423F",
-        }
+        brown: {
+          DEFAULT: '#5C4033',
+          dark: '#2A1A0F',
+          mid: '#3A2515',
+          input: '#4A2C2A',
+          border: '#6B4F4F',
+          hover: '#8B5A5A',
+          muted: '#8B7355',
+        },
+        gold: '#D4AF37',
       },
-      // Custom font families
       fontFamily: {
-        junigarden: ['JunigardenSwash', 'serif'],
-        ringbearer: ['Ringbearer', 'sans-serif'],
+        ringbearer: ['Ringbearer', 'serif'],
       },
-      // Custom animations
-      animation: {
-        'fade-in': 'fadeIn 0.5s ease-in-out',
-        'slide-up': 'slideUp 0.3s ease-out',
-        'pulse-slow': 'pulse 3s ease-in-out infinite',
-      },
-      // Animation keyframes
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        slideUp: {
-          '0%': { transform: 'translateY(10px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
-        },
-      },
-      // Custom background images
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-      }
     },
   },
-  // Tailwind plugins
-  plugins: [
-    require('@tailwindcss/aspect-ratio'),
-  ],
-}
+  plugins: [],
+};

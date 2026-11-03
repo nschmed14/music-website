@@ -12,10 +12,10 @@ The production version is exclusively deployed at: [https://noahsax.com](https:/
 
 *   **Frontend:** React 19 with React Router DOM v7
 *   **Styling:** Tailwind CSS v3 with custom configurations
-*   **Animations:** Framer Motion, GSAP, Lottie React
-*   **Integrations:** EmailJS, reCAPTCHA, YouTube Iframe API
+*   **Animations:** Framer Motion, SVG mask stroke animation (signature)
+*   **Integrations:** EmailJS (via Netlify Function), reCAPTCHA v3, YouTube embeds
 *   **Build Tool:** Create React App
-*   **Deployment:** Static hosting with custom domain configuration
+*   **Deployment:** Netlify (static site + serverless function in `api/`)
 
 ## 💻 Development
 

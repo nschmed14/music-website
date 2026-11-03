@@ -9,16 +9,12 @@
     "npm": ">=9.0.0"
   },
   "dependencies": {
-    "@emailjs/browser": "^4.4.1",
     "@emailjs/nodejs": "^5.0.2",
     "framer-motion": "^12.12.1",
-    "lottie-react": "^2.4.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.0",
-    "react-scripts": "^5.0.1",
-    "web-vitals": "^2.1.4",
-    "@lottiefiles/react-lottie-player": "^3.6.0"
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -52,7 +48,6 @@
     ]
   },
   "devDependencies": {
-    "@tailwindcss/aspect-ratio": "^0.4.2",
     "autoprefixer": "^10.4.16",
     "eslint-plugin-react-hooks": "^5.1.0",
     "gh-pages": "^6.2.0",

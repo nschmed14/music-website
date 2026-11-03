@@ -1,84 +1,36 @@
-// optimize-images.js
+// Generates WebP versions of the site images and smaller gallery thumbnails.
+// Run after adding or replacing images: `node optimize-images.js`
 const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 
-async function convertToWebP(inputPath, outputPath, quality = 80) {
-    try {
-        await sharp(inputPath)
-            .webp({ quality })
-            .toFile(outputPath);
-        console.log(`✅ Converted: ${path.basename(inputPath)} → ${path.basename(outputPath)}`);
-    } catch (error) {
-        console.error(`❌ Failed to convert ${inputPath}:`, error.message);
-    }
+const ASSETS = path.join(__dirname, 'public', 'assets');
+const PHOTOS = path.join(ASSETS, 'photos');
+const THUMBS = path.join(PHOTOS, 'thumbs');
+
+const jpgs = (dir) =>
+  fs.readdirSync(dir).filter((f) => /\.(jpe?g|png)$/i.test(f)).map((f) => path.join(dir, f));
+
+const toWebp = (file) => file.replace(/\.(jpe?g|png)$/i, '.webp');
+
+async function run() {
+  fs.mkdirSync(THUMBS, { recursive: true });
+
+  for (const file of [...jpgs(ASSETS), ...jpgs(PHOTOS)]) {
+    if (file.endsWith('signature.png')) continue;
+    await sharp(file).rotate().webp({ quality: 80 }).toFile(toWebp(file));
+    console.log('webp ', path.relative(__dirname, toWebp(file)));
+  }
+
+  // Gallery grid thumbnails (full-size images are only loaded in the viewer)
+  for (const file of jpgs(PHOTOS)) {
+    const out = path.join(THUMBS, path.basename(toWebp(file)));
+    await sharp(file).rotate().resize({ width: 900, withoutEnlargement: true }).webp({ quality: 78 }).toFile(out);
+    console.log('thumb', path.relative(__dirname, out));
+  }
 }
 
-async function optimizeAllImages() {
-    console.log('🔄 Starting image optimization...\n');
-    
-    // Public assets folder
-    const assetsDir = path.join(__dirname, 'public', 'assets');
-    const photosDir = path.join(assetsDir, 'photos');
-    
-    // List of images to convert
-    const images = [
-        // Background images
-        path.join(assetsDir, 'bio.jpg'),
-        path.join(assetsDir, 'contact.jpg'), 
-        path.join(assetsDir, 'home.jpg'),
-        path.join(assetsDir, 'media1.jpg'),
-        path.join(assetsDir, 'media2.jpg'),
-        path.join(assetsDir, 'media.jpg'),
-        
-        // Photo gallery
-        path.join(photosDir, 'photo1.jpg'),
-        path.join(photosDir, 'photo2.jpg'),
-        path.join(photosDir, 'photo3.jpg'),
-        path.join(photosDir, 'photo4.jpg'),
-        path.join(photosDir, 'photo5.jpg'),
-        path.join(photosDir, 'photo6.jpg')
-    ];
-    
-    // Filter only existing files
-    const existingImages = images.filter(img => fs.existsSync(img));
-    
-    console.log(`Found ${existingImages.length} images to optimize:\n`);
-    
-    // Convert each image
-    for (const imagePath of existingImages) {
-        const webpPath = imagePath.replace(/\.(jpg|jpeg|png)$/i, '.webp');
-        await convertToWebP(imagePath, webpPath);
-    }
-    
-    console.log('\n✨ Image optimization complete!');
-    
-    // Create optimized build folder structure
-    console.log('\n📁 Creating optimized build structure...');
-    
-    const buildAssetsDir = path.join(__dirname, 'build', 'assets');
-    const buildPhotosDir = path.join(buildAssetsDir, 'photos');
-    
-    // Copy WebP images to build folder
-    for (const imagePath of existingImages) {
-        const webpPath = imagePath.replace(/\.(jpg|jpeg|png)$/i, '.webp');
-        const buildWebpPath = webpPath.replace('public', 'build');
-        
-        // Ensure build directory exists
-        const buildDir = path.dirname(buildWebpPath);
-        if (!fs.existsSync(buildDir)) {
-            fs.mkdirSync(buildDir, { recursive: true });
-        }
-        
-        // Copy WebP file to build folder
-        if (fs.existsSync(webpPath)) {
-            fs.copyFileSync(webpPath, buildWebpPath);
-            console.log(`📦 Copied to build: ${path.basename(webpPath)}`);
-        }
-    }
-    
-    console.log('\n✅ All images optimized and ready for deployment!');
-}
-
-// Run optimization
-optimizeAllImages().catch(console.error);
+run().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

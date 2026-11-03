@@ -1,212 +1,229 @@
 /**
  * @file Media.js
- * @description Media gallery component with video and photo sections
+ * @description Media page: video performances and photo gallery
  * @copyright 2025 Noah Schmedding. All Rights Reserved.
- * @confidential This file contains proprietary information. Do not distribute.
  */
 
-import React, { useState, useMemo } from 'react';
-import Header from './Header.js';
-import Footer from './Footer.js';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import PageLayout from './PageLayout';
 
-const Media = () => {
-  const [activeTab, setActiveTab] = useState('video');
+const PHOTOS = [1, 2, 3, 4, 5, 6].map((n) => ({
+  id: n,
+  thumb: `/assets/photos/thumbs/photo${n}.webp`,
+  full: `/assets/photos/photo${n}.webp`,
+  alt: `Noah Schmedding performance photo ${n}`,
+}));
 
-  // Photo gallery data
-  const photos = useMemo(() => [
-    { id: 1, src: '/assets/photos/photo1.jpg', webp: '/assets/photos/photo1.webp' },
-    { id: 2, src: '/assets/photos/photo2.jpg', webp: '/assets/photos/photo2.webp' },
-    { id: 3, src: '/assets/photos/photo3.jpg', webp: '/assets/photos/photo3.webp' },
-    { id: 4, src: '/assets/photos/photo4.jpg', webp: '/assets/photos/photo4.webp' },
-    { id: 5, src: '/assets/photos/photo5.jpg', webp: '/assets/photos/photo5.webp' },
-    { id: 6, src: '/assets/photos/photo6.jpg', webp: '/assets/photos/photo6.webp' },
-  ], []);
+const VIDEOS = [
+  {
+    id: 'qKee9bEtlto',
+    title: 'Pequeña Czarda',
+    composer: 'Pedro Iturralde',
+    description:
+      "Live performance from my year 1 master's recital in Spring of 2025.\n\nFeaturing:\nAlto Saxophone - Dr. Andrew MacRossie\nPiano - Dr. Elizabeth Vaughan",
+  },
+  {
+    id: 'EtzSO-1u9YU',
+    title: 'Concerto for Alto Saxophone and Band I. Energetic',
+    composer: 'Paul Creston',
+    description:
+      'Recorded in November of 2023 in preparation for my masters degree audition cycle\n\nFeaturing:\nPiano - Patrick Flannery',
+  },
+  {
+    id: '9-_qDosZBzg',
+    title: 'Concerto for Alto Saxophone and Band III. Rhythmic',
+    composer: 'Paul Creston',
+    description:
+      'Recorded in November of 2023 in preparation for my masters degree audition cycle\n\nFeaturing:\nPiano - Patrick Flannery',
+  },
+];
 
-  // Video gallery data
-  const videos = useMemo(() => [
-    {
-      id: 'qKee9bEtlto',
-      title: 'Pequeña Czarda',
-      composer: 'Pedro Iturralde',
-      description: `Live performance from my year 1 master's recital in Spring of 2025.\n\nFeaturing:\nAlto Saxophone - Dr. Andrew MacRossie \nPiano - Dr. Elizabeth Vaughan`,
-      align: 'right'
-    },
-    {
-      id: 'EtzSO-1u9YU',
-      title: 'Concerto for Alto Saxophone and Band I. Energetic',
-      composer: 'Paul Creston',
-      description: 'Recorded in November of 2023 in preparation for my masters degree audition cycle\n\nFeaturing:\nPiano - Patrick Flannery',
-      align: 'left'
-    },
-    {
-      id: '9-_qDosZBzg',
-      title: 'Concerto for Alto Saxophone and Band III. Rhythmic',
-      composer: 'Paul Creston',
-      description: 'Recorded in November of 2023 in preparation for my masters degree audition cycle\n\nFeaturing:\nPiano - Patrick Flannery',
-      align: 'right'
-    },
-  ], []);
+const TABS = [
+  { id: 'photo', label: 'Photo' },
+  { id: 'video', label: 'Video' },
+];
 
+function Videos() {
   return (
-    <div className="relative min-h-screen flex flex-col">
-      <Header />
-
-      <div className="fixed inset-0 -z-10">
-        <picture>
-          <source srcSet="/assets/media.webp" type="image/webp" />
-          <img
-            src="/assets/media.jpg"
-            alt="Saxophone performance background with stage lighting"
-            className="w-full h-full object-cover"
-            style={{
-              objectPosition: 'left center'
-            }}
-            loading="lazy"
-            decoding="async"
-            width="1920"
-            height="1080"
-          />
-        </picture>
-      </div>
-
-      <div className="pt-40 pb-16 px-4 md:px-8 flex-grow relative z-10">
-        <div className="flex justify-center mb-16">
-          <button
-            onClick={() => setActiveTab('photo')}
-            className={`px-10 py-4 mx-3 text-xl rounded-xl transition-all duration-300 ${activeTab === 'photo' 
-              ? 'bg-black/60 backdrop-blur-md text-white shadow-lg transform scale-105 border border-white/20' 
-              : 'bg-black/40 backdrop-blur-sm text-white hover:bg-black/50 hover:shadow-md hover:transform hover:scale-[1.02] border border-white/10'}`}
-            style={{ fontFamily: "'Ringbearer', sans-serif" }}
-            aria-pressed={activeTab === 'photo'}
-            aria-label="View photo gallery"
-          >
-            Photo
-          </button>
-          <button
-            onClick={() => setActiveTab('video')}
-            className={`px-10 py-4 mx-3 text-xl rounded-xl transition-all duration-300 ${activeTab === 'video' 
-              ? 'bg-black/60 backdrop-blur-md text-white shadow-lg transform scale-105 border border-white/20' 
-              : 'bg-black/40 backdrop-blur-sm text-white hover:bg-black/50 hover:shadow-md hover:transform hover:scale-[1.02] border border-white/10'}`}
-            style={{ fontFamily: "'Ringbearer', sans-serif" }}
-            aria-pressed={activeTab === 'video'}
-            aria-label="View video gallery"
-          >
-            Video
-          </button>
-        </div>
-
-        {activeTab === 'video' && (
-          <div className="max-w-6xl mx-auto space-y-12 lg:space-y-24">
-            {videos.map((video, index) => (
-              <div 
-                key={video.id} 
-                className={`flex flex-col ${video.align === 'left' ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-stretch gap-0 overflow-hidden rounded-xl shadow-2xl`}
-              >
-                <div className="w-full lg:w-2/3 relative">
-                  <div className="relative" style={{ paddingBottom: '56.25%' }}>
-                    <iframe
-                      src={`https://www.youtube-nocookie.com/embed/${video.id}`}
-                      className="absolute top-0 left-0 w-full h-full"
-                      title={`${video.title} - ${video.composer}`}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="strict-origin-when-cross-origin"
-                      sandbox="allow-scripts allow-same-origin allow-presentation"
-                    />
-                  </div>
-                </div>
-                
-                <div className="w-full lg:w-1/3 relative lg:block">
-                  <div className="hidden lg:block absolute inset-0 bg-black/40 backdrop-blur-sm border-l border-r border-white/20">
-                    <div className="h-full p-6 md:p-8 flex flex-col justify-center">
-                      <h2 
-                        className="text-2xl md:text-3xl mb-3 font-light text-white"
-                        style={{ fontFamily: "'Ringbearer', sans-serif" }}
-                      >
-                        {video.title}
-                      </h2>
-                      <p className="text-lg md:text-xl text-gray-300 mb-4 italic font-sans">
-                        {video.composer}
-                      </p>
-                      <p className="text-white leading-relaxed whitespace-pre-line font-sans">
-                        {video.description}
-                      </p>
-                    </div>
-                  </div>
-                  
-                  <div className="lg:hidden bg-black/40 backdrop-blur-sm p-6 border-t border-white/20">
-                    <h2 
-                      className="text-2xl mb-3 font-light text-white"
-                      style={{ fontFamily: "'Ringbearer', sans-serif" }}
-                    >
-                      {video.title}
-                    </h2>
-                    <p className="text-lg text-gray-300 mb-4 italic font-sans">
-                      {video.composer}
-                    </p>
-                    <p className="text-white leading-relaxed whitespace-pre-line font-sans">
-                      {video.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
+    <div className="mx-auto max-w-6xl space-y-10 lg:space-y-20">
+      {VIDEOS.map((video, i) => (
+        <article
+          key={video.id}
+          className={`flex flex-col overflow-hidden rounded-xl shadow-2xl ${i % 2 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}
+        >
+          <div className="aspect-video w-full bg-black lg:w-2/3">
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${video.id}?rel=0`}
+              className="h-full w-full"
+              title={`${video.title} - ${video.composer}`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+            />
           </div>
-        )}
-
-        {activeTab === 'photo' && (
-          <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <h2 
-              className="text-4xl font-light text-white mb-8 text-center"
-              style={{ fontFamily: "'Ringbearer', sans-serif" }}
-            >
-              Photo Gallery
-            </h2>
-
-            <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-              {photos.length > 0 ? (
-                photos.map((photo) => (
-                  <div 
-                    key={photo.id}
-                    className="group break-inside-avoid overflow-hidden rounded-xl shadow-lg bg-black/10 hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02]"
-                  >
-                    <picture>
-                      <source srcSet={photo.webp} type="image/webp" />
-                      <img
-                        src={photo.src}
-                        alt={`Performance ${photo.id} - saxophonist on stage`}
-                        className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
-                        loading="lazy"
-                        decoding="async"
-                        width="800"
-                        height="600"
-                      />
-                    </picture>
-                  </div>
-                ))
-              ) : (
-                <div className="col-span-3">
-                  <div className="bg-black/40 backdrop-blur-sm rounded-xl p-12 md:p-16 border border-white/20 text-center">
-                    <p className="text-2xl text-white font-sans mb-4">
-                      Photo Gallery Coming Soon
-                    </p>
-                    <p className="text-lg text-gray-300 font-sans">
-                      Professional performance, studio, and teaching photos will be added here.
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
+          <div className="flex w-full flex-col justify-center border-white/20 bg-black/50 p-6 backdrop-blur-sm max-lg:border-t lg:w-1/3 lg:border-x lg:p-8">
+            <h2 className="mb-3 text-2xl font-light md:text-3xl">{video.title}</h2>
+            <p className="mb-4 text-lg italic text-gray-300 md:text-xl">{video.composer}</p>
+            <p className="whitespace-pre-line leading-relaxed">{video.description}</p>
           </div>
-        )}
-      </div>
-      
-      <div className="mt-auto relative z-10">
-        <Footer />
-      </div>
+        </article>
+      ))}
     </div>
   );
-};
+}
 
-export default Media;
+function Lightbox({ index, onClose, onStep }) {
+  const touchX = useRef(null);
+  const photo = PHOTOS[index];
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowRight') onStep(1);
+      if (e.key === 'ArrowLeft') onStep(-1);
+    };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [onClose, onStep]);
+
+  const arrow = 'absolute top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-3 text-white transition hover:bg-black/80';
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 p-4 sm:p-10"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      onClick={onClose}
+      onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
+      onTouchEnd={(e) => {
+        if (touchX.current === null) return;
+        const dx = e.changedTouches[0].clientX - touchX.current;
+        touchX.current = null;
+        if (Math.abs(dx) > 50) onStep(dx < 0 ? 1 : -1);
+      }}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Photo viewer"
+    >
+      <img
+        key={photo.id}
+        src={photo.full}
+        alt={photo.alt}
+        className="max-h-full max-w-full rounded-lg object-contain shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      />
+      <button
+        type="button"
+        className="absolute right-3 top-3 rounded-full bg-black/50 p-3 text-white transition hover:bg-black/80"
+        onClick={onClose}
+        aria-label="Close"
+        autoFocus
+      >
+        <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path strokeLinecap="round" strokeWidth="2" d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        className={`${arrow} left-3`}
+        onClick={(e) => {
+          e.stopPropagation();
+          onStep(-1);
+        }}
+        aria-label="Previous photo"
+      >
+        <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        className={`${arrow} right-3`}
+        onClick={(e) => {
+          e.stopPropagation();
+          onStep(1);
+        }}
+        aria-label="Next photo"
+      >
+        <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </motion.div>
+  );
+}
+
+function Photos() {
+  const [open, setOpen] = useState(null);
+  const close = useCallback(() => setOpen(null), []);
+  const step = useCallback((dir) => setOpen((i) => (i + dir + PHOTOS.length) % PHOTOS.length), []);
+
+  return (
+    <>
+      <div className="mx-auto max-w-7xl columns-1 gap-6 sm:columns-2 lg:columns-3">
+        {PHOTOS.map((photo, i) => (
+          <button
+            key={photo.id}
+            type="button"
+            onClick={() => setOpen(i)}
+            className="group mb-6 block w-full break-inside-avoid overflow-hidden rounded-xl bg-black/20 shadow-lg transition-shadow duration-300 hover:shadow-2xl"
+            aria-label={`View ${photo.alt}`}
+          >
+            <img
+              src={photo.thumb}
+              alt={photo.alt}
+              className="h-auto w-full transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+              decoding="async"
+            />
+          </button>
+        ))}
+      </div>
+      <AnimatePresence>{open !== null && <Lightbox index={open} onClose={close} onStep={step} />}</AnimatePresence>
+    </>
+  );
+}
+
+export default function Media() {
+  const [activeTab, setActiveTab] = useState('video');
+
+  return (
+    <PageLayout image="media" position="left center">
+      <div className="page-top px-4 pb-16 sm:px-8">
+        <h1 className="sr-only">Media</h1>
+        <div className="mb-10 flex justify-center gap-4 sm:mb-16 sm:gap-6" role="tablist" aria-label="Media type">
+          {TABS.map((tab) => {
+            const active = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                role="tab"
+                aria-selected={active}
+                onClick={() => setActiveTab(tab.id)}
+                className={`rounded-xl border px-8 py-3 font-ringbearer text-lg transition-all duration-300 sm:px-10 sm:py-4 sm:text-xl ${
+                  active
+                    ? 'scale-105 border-white/30 bg-black/60 shadow-lg backdrop-blur-md'
+                    : 'border-white/10 bg-black/40 backdrop-blur-sm hover:scale-[1.02] hover:bg-black/50'
+                }`}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <div role="tabpanel">{activeTab === 'video' ? <Videos /> : <Photos />}</div>
+      </div>
+    </PageLayout>
+  );
+}

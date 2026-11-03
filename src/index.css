@@ -1,133 +1,79 @@
 /**
  * @file index.css
- * @description Global CSS styles and Tailwind configuration
  * @copyright 2025 Noah Schmedding. All Rights Reserved.
- * @confidential This file contains proprietary information. Do not distribute.
  */
 
-/* Required Tailwind CSS directives */
+@font-face {
+  font-family: 'Ringbearer';
+  src: url('./assets/fonts/Ringbearer.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Base HTML and body styles */
 @layer base {
   html {
-    @apply scroll-smooth;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply bg-background text-text antialiased;
+    @apply bg-black text-white antialiased;
   }
-  /* Custom font for headings */
-  h1, h2, h3 {
-  font-family: 'Ringbearer', sans-serif;
-  }
-
-  /* Smooth image loading transitions */
-  img {
-    @apply transition-opacity duration-500 ease-in-out;
+  h1,
+  h2,
+  h3 {
+    @apply font-ringbearer;
   }
 }
 
-/* Reusable component styles */
 @layer components {
-  /* Navigation link styling */
-  .nav-link {
-    @apply block py-2 px-4 text-accent-3 hover:text-accent-1 transition-colors;
+  /* Translucent brown card used on Bio and Contact */
+  .panel {
+    @apply rounded-xl border-2 border-black bg-brown/80 p-5 backdrop-blur-md sm:p-8;
   }
-  /* Image frame styling */
-  .image-frame {
-    @apply rounded-lg shadow-md overflow-hidden border-2 border-accent-2;
+  .field {
+    @apply w-full rounded-lg border border-brown-border bg-brown-input/70 px-4 py-3 text-base text-white placeholder-gray-300 transition focus:border-brown-hover focus:outline-none focus:ring-2 focus:ring-brown-hover disabled:opacity-60;
   }
-
-  /* Background image container styles */
-  .bg-image-container {
-    @apply fixed inset-0 -z-10 overflow-hidden;
-  }
-  /* Background image overlay */
-  .bg-image-overlay {
-    @apply absolute inset-0 bg-black bg-opacity-40;
-  }
-  /* Background image styling */
-  .bg-image {
-    @apply w-full h-full object-cover;
+  /* Space below the fixed header */
+  .page-top {
+    @apply pt-28 desk:pt-40;
   }
 }
 
-/* Custom utility classes */
-@layer utilities {
-  /* Balanced text wrapping */
-  .text-balance {
-    text-wrap: balance;
-  }
-  /* Hero section clip path */
-  .clip-path-hero {
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-  }
-
-  /* Page transition animations */
-  .page-fade {
-    animation: fadeIn 0.5s ease-in-out;
-  }
-  /* Animation delay classes */
-  .delay-100 {
-    animation-delay: 100ms;
-  }
-  .delay-200 {
-    animation-delay: 200ms;
-  }
+/* Signature draw-on: each stroke in the SVG mask reveals the signature image. */
+.signature-stroke {
+  stroke-dasharray: var(--len) var(--len);
+  stroke-dashoffset: var(--len);
 }
-
-/* Fade-in animation definition */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.signature-play .signature-stroke {
+  animation: signature-draw 3.1s cubic-bezier(0.333, 0, 0.667, 1) forwards;
 }
-
-/* Reduced motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  img,
-  .page-fade {
-    transition: none !important;
-    animation: none !important;
-  }
-}
-
-/* Signature drawing animation */
-@keyframes draw {
+@keyframes signature-draw {
   to {
     stroke-dashoffset: 0;
   }
 }
 
-/* Signature path styling */
-.signature-path {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
+/* reCAPTCHA v3 badge is hidden; the required notice is shown under the contact form. */
+.grecaptcha-badge {
+  visibility: hidden !important;
 }
 
-/* Writing sound effect animation */
-@keyframes pencil-sound {
-  0% { opacity: 0.3; }
-  50% { opacity: 0.7; }
-  100% { opacity: 0; }
-}
-
-/* Pencil writing effect */
-.pencil-effect::after {
-  content: '';
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background: rgba(0,0,0,0.5);
-  border-radius: 50%;
-  animation: pencil-sound 0.3s infinite alternate;
-}
-
-/* Mobile performance optimization */
-@media (max-width: 768px) {
-  .lottie-container {
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+@media (prefers-reduced-motion: reduce) {
+  .signature-stroke {
+    stroke-dashoffset: 0;
+  }
+  .signature-play .signature-stroke {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
