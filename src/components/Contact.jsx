@@ -1,13 +1,14 @@
 /**
  * @file Contact.jsx
- * @description Contact form, submitted to the Netlify function in /api/contact.js
+ * @description Contact form, submitted to POST /api/contact (worker/index.js on Cloudflare)
  * @copyright 2025 Noah Schmedding. All Rights Reserved.
  */
 
 import { useEffect, useState } from 'react';
 import PageLayout from './PageLayout';
 
-const RECAPTCHA_KEY = import.meta.env.REACT_APP_RECAPTCHA_SITE_KEY;
+// Public reCAPTCHA v3 site key (safe to ship; the secret key lives on the server)
+const RECAPTCHA_KEY = import.meta.env.REACT_APP_RECAPTCHA_SITE_KEY || '6LflfyAsAAAAAOcGko460R1LoZvpvxveFIlXhvYc';
 const EMPTY = { name: '', email: '', message: '', company: '' }; // `company` is a hidden honeypot
 
 function loadRecaptcha() {
@@ -61,7 +62,7 @@ export default function Contact() {
     setStatus('sending');
     setError('');
     try {
-      const res = await fetch('/.netlify/functions/contact', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

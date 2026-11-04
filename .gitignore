@@ -69,3 +69,7 @@ node_modules/
 *.swo
 
 .env*
+
+# Cloudflare Wrangler
+.wrangler/
+.dev.vars*
