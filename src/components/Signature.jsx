@@ -1,5 +1,5 @@
 /**
- * @file Signature.js
+ * @file Signature.jsx
  * @description Animated "written" signature.
  *
  * The signature image is revealed through an SVG mask made of strokes that trace
@@ -9,7 +9,7 @@
  * @copyright 2025 Noah Schmedding. All Rights Reserved.
  */
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SIGNATURE_PATHS from './signaturePaths';
 
 const SRC = '/assets/signature.png';

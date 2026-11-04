@@ -1,10 +1,10 @@
 /**
- * @file Media.js
+ * @file Media.jsx
  * @description Media page: video performances and photo gallery
  * @copyright 2025 Noah Schmedding. All Rights Reserved.
  */
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import PageLayout from './PageLayout';
 
@@ -44,6 +44,59 @@ const TABS = [
   { id: 'video', label: 'Video' },
 ];
 
+/**
+ * Shows the video's thumbnail with a play button; the YouTube player (≈1MB+ of
+ * scripts per video) only loads when it's tapped.
+ */
+function YouTubeVideo({ id, title }) {
+  const [playing, setPlaying] = useState(false);
+  const thumb = (q) => `https://i.ytimg.com/vi_webp/${id}/${q}.webp`;
+
+  if (playing) {
+    return (
+      <iframe
+        src={`https://www.youtube-nocookie.com/embed/${id}?rel=0&autoplay=1&playsinline=1`}
+        className="absolute inset-0 h-full w-full"
+        title={title}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+        referrerPolicy="strict-origin-when-cross-origin"
+      />
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={() => setPlaying(true)}
+      className="group absolute inset-0 block h-full w-full"
+      aria-label={`Play ${title}`}
+    >
+      <img
+        src={thumb('hqdefault')}
+        srcSet={`${thumb('hqdefault')} 480w, ${thumb('sddefault')} 640w, ${thumb('maxresdefault')} 1280w`}
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        alt=""
+        className="h-full w-full object-cover"
+        loading="lazy"
+        decoding="async"
+      />
+      <span className="absolute inset-0 bg-black/20 transition-colors group-hover:bg-black/10" />
+      <svg
+        className="absolute left-1/2 top-1/2 h-12 w-[4.25rem] -translate-x-1/2 -translate-y-1/2 drop-shadow-lg transition-transform duration-200 group-hover:scale-110"
+        viewBox="0 0 68 48"
+        aria-hidden="true"
+      >
+        <path
+          fill="#FF0000"
+          d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"
+        />
+        <path fill="#FFFFFF" d="M45 24 27 14v20z" />
+      </svg>
+    </button>
+  );
+}
+
 function Videos() {
   return (
     <div className="mx-auto max-w-6xl space-y-10 lg:space-y-20">
@@ -52,16 +105,8 @@ function Videos() {
           key={video.id}
           className={`flex flex-col overflow-hidden rounded-xl shadow-2xl ${i % 2 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}
         >
-          <div className="aspect-video w-full bg-black lg:w-2/3">
-            <iframe
-              src={`https://www.youtube-nocookie.com/embed/${video.id}?rel=0`}
-              className="h-full w-full"
-              title={`${video.title} - ${video.composer}`}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="strict-origin-when-cross-origin"
-            />
+          <div className="relative aspect-video w-full overflow-hidden bg-black lg:w-2/3">
+            <YouTubeVideo id={video.id} title={`${video.title} - ${video.composer}`} />
           </div>
           <div className="flex w-full flex-col justify-center border-white/20 bg-black/50 p-6 backdrop-blur-sm max-lg:border-t lg:w-1/3 lg:border-x lg:p-8">
             <h2 className="mb-3 text-2xl font-light md:text-3xl">{video.title}</h2>
@@ -197,7 +242,7 @@ export default function Media() {
   const [activeTab, setActiveTab] = useState('video');
 
   return (
-    <PageLayout image="media" position="left center">
+    <PageLayout title="Media" image="media" position="left center">
       <div className="page-top px-4 pb-16 sm:px-8">
         <h1 className="sr-only">Media</h1>
         <div className="mb-10 flex justify-center gap-4 sm:mb-16 sm:gap-6" role="tablist" aria-label="Media type">

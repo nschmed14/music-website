@@ -14,7 +14,7 @@ The production version is exclusively deployed at: [https://noahsax.com](https:/
 *   **Styling:** Tailwind CSS v3 with custom configurations
 *   **Animations:** Framer Motion, SVG mask stroke animation (signature)
 *   **Integrations:** EmailJS (via Netlify Function), reCAPTCHA v3, YouTube embeds
-*   **Build Tool:** Create React App
+*   **Build Tool:** Vite
 *   **Deployment:** Netlify (static site + serverless function in `api/`)
 
 ## 💻 Development
@@ -37,6 +37,7 @@ To run this project locally:
     ```bash
     npm start
     ```
+5.  To add or replace gallery photos, put the originals in `images-src/photos/` and run `npm run optimize-images -- photos`.
 
 ## ⚖️ Intellectual Property & Usage Restrictions
 

@@ -1,5 +1,5 @@
 /**
- * @file App.js
+ * @file App.jsx
  * @description Routing, persistent header, and page transitions
  * @copyright 2025 Noah Schmedding. All Rights Reserved.
  */
@@ -15,7 +15,7 @@ import Media from './components/Media';
 import Contact from './components/Contact';
 
 const NotFound = () => (
-  <PageLayout>
+  <PageLayout title="Page Not Found">
     <div className="flex flex-1 flex-col items-center justify-center px-4 py-24 text-center">
       <h1 className="mb-4 text-6xl">404</h1>
       <p className="mb-8 text-xl text-gray-300">Page not found</p>

@@ -1,13 +1,13 @@
 /**
- * @file Contact.js
+ * @file Contact.jsx
  * @description Contact form, submitted to the Netlify function in /api/contact.js
  * @copyright 2025 Noah Schmedding. All Rights Reserved.
  */
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import PageLayout from './PageLayout';
 
-const RECAPTCHA_KEY = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
+const RECAPTCHA_KEY = import.meta.env.REACT_APP_RECAPTCHA_SITE_KEY;
 const EMPTY = { name: '', email: '', message: '', company: '' }; // `company` is a hidden honeypot
 
 function loadRecaptcha() {
@@ -85,7 +85,7 @@ export default function Contact() {
   const sending = status === 'sending';
 
   return (
-    <PageLayout image="contact" position="33% center">
+    <PageLayout title="Contact" image="contact" position="33% center">
       <div className="page-top mx-auto flex w-full max-w-7xl justify-center px-4 pb-12 sm:px-8 lg:justify-end">
         <div className="w-full max-w-lg space-y-6">
           <section className="panel">

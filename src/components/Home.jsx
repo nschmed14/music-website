@@ -1,10 +1,9 @@
 /**
- * @file Home.js
+ * @file Home.jsx
  * @description Home page with the animated signature
  * @copyright 2025 Noah Schmedding. All Rights Reserved.
  */
 
-import React from 'react';
 import PageLayout from './PageLayout';
 import Signature from './Signature';
 

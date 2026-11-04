@@ -1,5 +1,5 @@
 /**
- * @file index.js
+ * @file index.jsx
  * @copyright 2025 Noah Schmedding. All Rights Reserved.
  */
 

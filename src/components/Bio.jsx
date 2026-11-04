@@ -1,15 +1,14 @@
 /**
- * @file Bio.js
+ * @file Bio.jsx
  * @description Biography page
  * @copyright 2025 Noah Schmedding. All Rights Reserved.
  */
 
-import React from 'react';
 import PageLayout from './PageLayout';
 
 export default function Bio() {
   return (
-    <PageLayout image="bio" position="66.67% center" overlay="bg-black/40">
+    <PageLayout title="Bio" image="bio" position="66.67% center" overlay="bg-black/40">
       <div className="page-top mx-auto w-full max-w-7xl px-4 pb-12 sm:px-8">
         <h1 className="mb-6 text-4xl font-light sm:mb-8 md:text-5xl">Biography</h1>
 

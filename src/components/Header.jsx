@@ -1,10 +1,10 @@
 /**
- * @file Header.js
+ * @file Header.jsx
  * @description Fixed site header: desktop nav with sliding underline, mobile slide-out menu
  * @copyright 2025 Noah Schmedding. All Rights Reserved.
  */
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '../assets/Final Logo.png';

@@ -1,10 +1,9 @@
 /**
- * @file Footer.js
+ * @file Footer.jsx
  * @description Site footer: social links, signature credit, copyright
  * @copyright 2025 Noah Schmedding. All Rights Reserved.
  */
 
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 const SOCIAL_LINKS = [

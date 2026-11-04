@@ -1,11 +1,11 @@
 /**
- * @file ErrorBoundary.js
+ * @file ErrorBoundary.jsx
  * @copyright 2025 Noah Schmedding. All Rights Reserved.
  */
 
-import React from 'react';
+import { Component } from 'react';
 
-export default class ErrorBoundary extends React.Component {
+export default class ErrorBoundary extends Component {
   state = { hasError: false };
 
   static getDerivedStateFromError() {
