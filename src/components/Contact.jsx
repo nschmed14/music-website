@@ -90,7 +90,7 @@ export default function Contact() {
       <div className="page-top mx-auto flex w-full max-w-7xl justify-center px-4 pb-12 sm:px-8 lg:justify-end">
         <div className="w-full max-w-lg space-y-6">
           <section className="panel">
-            <h1 className="mb-5 text-4xl font-light md:text-5xl">Contact Me</h1>
+            <h1 className="mb-5 text-center text-4xl font-light md:text-5xl">Contact Me</h1>
 
             <form onSubmit={onSubmit} className="space-y-4" noValidate>
               <div aria-live="polite">
