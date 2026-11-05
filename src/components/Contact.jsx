@@ -178,6 +178,15 @@ export default function Contact() {
                 {sending ? 'Sending…' : 'Send Message'}
               </button>
 
+              <div className="pt-2">
+                <p className="mb-2">When reaching out regarding a lesson inquiry, please include:</p>
+                <ul className="ml-5 list-disc space-y-1">
+                  <li>The student's name and year in school</li>
+                  <li>How many years the student has been playing</li>
+                  <li>Your preferred lesson location</li>
+                </ul>
+              </div>
+
               {RECAPTCHA_KEY && (
                 <p className="text-center text-xs text-gray-300">
                   Protected by reCAPTCHA. Google{' '}
@@ -192,15 +201,6 @@ export default function Contact() {
                 </p>
               )}
             </form>
-          </section>
-
-          <section className="panel">
-            <p className="mb-3 text-lg">When reaching out regarding a lesson inquiry, please include:</p>
-            <ul className="ml-5 list-disc space-y-1.5">
-              <li>The student's name and year in school</li>
-              <li>How many years the student has been playing</li>
-              <li>Your preferred lesson location</li>
-            </ul>
           </section>
         </div>
       </div>
