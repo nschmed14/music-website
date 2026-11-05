@@ -48,19 +48,32 @@ async function recaptchaProblem(env, token, ip) {
   return null;
 }
 
+const EMAILJS_SETTINGS = ['EMAILJS_SERVICE_ID', 'EMAILJS_TEMPLATE_ID', 'EMAILJS_PUBLIC_KEY', 'EMAILJS_PRIVATE_KEY'];
+
 async function sendEmail(env, params) {
+  const setting = (name) => (typeof env[name] === 'string' ? env[name].trim() : '');
+  const missing = EMAILJS_SETTINGS.filter((name) => !setting(name));
+  if (missing.length) throw new Error(`Missing or empty settings: ${missing.join(', ')}`);
+
   const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      service_id: env.EMAILJS_SERVICE_ID,
-      template_id: env.EMAILJS_TEMPLATE_ID,
-      user_id: env.EMAILJS_PUBLIC_KEY,
-      accessToken: env.EMAILJS_PRIVATE_KEY,
+      service_id: setting('EMAILJS_SERVICE_ID'),
+      template_id: setting('EMAILJS_TEMPLATE_ID'),
+      user_id: setting('EMAILJS_PUBLIC_KEY'),
+      accessToken: setting('EMAILJS_PRIVATE_KEY'),
       template_params: params,
     }),
   });
-  if (!res.ok) throw new Error(`EmailJS ${res.status}: ${await res.text()}`);
+  if (!res.ok) {
+    // Describe each setting's shape (never its value) to help spot copy/paste problems
+    const shapes = EMAILJS_SETTINGS.map((name) => {
+      const v = setting(name);
+      return `${name}: ${v.length} chars${/^[A-Za-z0-9_-]+$/.test(v) ? '' : ', has unexpected characters'}`;
+    });
+    throw new Error(`EmailJS ${res.status}: ${await res.text()} [${shapes.join('; ')}]`);
+  }
 }
 
 async function handleContact(request, env) {
