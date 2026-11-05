@@ -5,6 +5,14 @@
   "name": "music-website",
   "main": "worker/index.js",
   "compatibility_date": "2025-09-01",
+  // Keep the music-website.<account>.workers.dev test address
+  "workers_dev": true,
+  "preview_urls": true,
+  // noahsax.com and www (www redirects to the bare domain in worker/index.js)
+  "routes": [
+    { "pattern": "noahsax.com", "custom_domain": true },
+    { "pattern": "www.noahsax.com", "custom_domain": true }
+  ],
   "assets": {
     "directory": "./build",
     "binding": "ASSETS",
