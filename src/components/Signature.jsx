@@ -12,7 +12,8 @@
 import { useEffect, useState } from 'react';
 import SIGNATURE_PATHS from './signaturePaths';
 
-const SRC = '/assets/signature.png';
+// ?v= busts browser caches when the image changes (bump it if you edit the file)
+const SRC = '/assets/signature.png?v=2';
 const WIDTH = 1287;
 const HEIGHT = 645;
 
@@ -44,6 +45,13 @@ export default function Signature({ className = '' }) {
             {SIGNATURE_PATHS.map(({ d, length }) => (
               <path key={length} d={d} className="signature-stroke" style={{ '--len': length }} />
             ))}
+            {/* Dot on the "i" in Schmedding, tapped on after the rest of the signature */}
+            <path
+              d="M1110 178.5 L1119 175.5"
+              strokeWidth="15"
+              className="signature-stroke signature-dot"
+              style={{ '--len': 10 }}
+            />
           </g>
         </mask>
       </defs>

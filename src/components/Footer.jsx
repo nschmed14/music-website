@@ -98,7 +98,7 @@ export default function Footer() {
           aria-label="Home"
         >
           <span className="font-ringbearer text-sm font-light tracking-wider text-gray-400">Website by</span>
-          <img src="/assets/signature.png" alt="Noah Schmedding" className="h-12 w-auto" width="96" height="48" />
+          <img src="/assets/signature.png?v=2" alt="Noah Schmedding" className="h-12 w-auto" width="96" height="48" />
         </Link>
 
         <p className="text-center text-sm text-gray-500 md:justify-self-end md:text-right">
