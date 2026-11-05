@@ -114,7 +114,15 @@ async function handleContact(request, env) {
 
 export default {
   async fetch(request, env) {
-    const { pathname } = new URL(request.url);
+    const url = new URL(request.url);
+    const { pathname } = url;
+
+    // www.noahsax.com -> noahsax.com (permanent redirect, keeps the path)
+    if (url.hostname.startsWith('www.')) {
+      url.hostname = url.hostname.slice(4);
+      return Response.redirect(url.toString(), 301);
+    }
+
     if (pathname === '/api/contact') return handleContact(request, env);
     if (pathname.startsWith('/api/')) return json(404, { error: 'Not found' });
     return env.ASSETS.fetch(request);
