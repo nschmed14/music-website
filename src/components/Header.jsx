@@ -7,7 +7,7 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import logo from '../assets/Final Logo.png';
+import logo from '../assets/Name Logo.png';
 import useHomeLinkClick from './useHomeLinkClick';
 
 const NAV_LINKS = [
@@ -178,8 +178,8 @@ export default function Header() {
           >
             <img
               src={logo}
-              alt="Noah Schmedding Saxophone"
-              className="h-10 w-auto max-w-[calc(100vw-8rem)] object-contain sm:h-12 desk:h-20 2xl:h-24"
+              alt="Noah Schmedding"
+              className="h-10 w-auto max-w-[calc(100vw-8rem)] object-contain sm:h-11 desk:h-[clamp(4rem,3.4vw,4.75rem)]"
             />
           </Link>
 
