@@ -117,9 +117,10 @@ export default {
     const url = new URL(request.url);
     const { pathname } = url;
 
-    // www.noahsax.com -> noahsax.com (permanent redirect, keeps the path)
-    if (url.hostname.startsWith('www.')) {
-      url.hostname = url.hostname.slice(4);
+    // http -> https, and www.noahsax.com -> noahsax.com (permanent redirects, keep the path)
+    if (url.protocol === 'http:' || url.hostname.startsWith('www.')) {
+      url.protocol = 'https:';
+      url.hostname = url.hostname.replace(/^www\./, '');
       return Response.redirect(url.toString(), 301);
     }
 

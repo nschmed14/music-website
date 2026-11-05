@@ -13,9 +13,9 @@ The production version is exclusively deployed at: [https://noahsax.com](https:/
 *   **Frontend:** React 19 with React Router DOM v7
 *   **Styling:** Tailwind CSS v3 with custom configurations
 *   **Animations:** Framer Motion, SVG mask stroke animation (signature)
-*   **Integrations:** EmailJS (via Netlify Function), reCAPTCHA v3, YouTube embeds
+*   **Integrations:** EmailJS (via Cloudflare Worker), reCAPTCHA v3, YouTube embeds
 *   **Build Tool:** Vite
-*   **Deployment:** Netlify (static site + serverless function in `api/`)
+*   **Deployment:** Cloudflare Workers (static assets + contact API in `worker/`, config in `wrangler.jsonc`)
 
 ## 💻 Development
 
