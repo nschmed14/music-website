@@ -4,7 +4,7 @@
  * @copyright 2025 Noah Schmedding. All Rights Reserved.
  */
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const SOCIAL_LINKS = [
   {
@@ -67,6 +67,16 @@ const SOCIAL_LINKS = [
 ];
 
 export default function Footer() {
+  const { pathname } = useLocation();
+
+  // On the home page the link goes nowhere new, so reload instead to replay the signature animation
+  const onSignatureClick = (e) => {
+    if (pathname !== '/') return;
+    e.preventDefault();
+    window.scrollTo(0, 0); // so the reload starts at the top
+    window.location.reload();
+  };
+
   return (
     <footer className="w-full border-t border-gray-800 bg-black px-6 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
       <div className="flex flex-col items-center gap-5 md:grid md:grid-cols-[1fr_auto_1fr] md:gap-6">
@@ -88,7 +98,12 @@ export default function Footer() {
           ))}
         </ul>
 
-        <Link to="/" className="flex items-center gap-2 transition-opacity hover:opacity-80" aria-label="Home">
+        <Link
+          to="/"
+          onClick={onSignatureClick}
+          className="flex items-center gap-2 transition-opacity hover:opacity-80"
+          aria-label="Home"
+        >
           <span className="font-ringbearer text-sm font-light tracking-wider text-gray-400">Website by</span>
           <img src="/assets/signature.png" alt="Noah Schmedding" className="h-12 w-auto" width="96" height="48" />
         </Link>
