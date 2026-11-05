@@ -4,7 +4,8 @@
  * @copyright 2025 Noah Schmedding. All Rights Reserved.
  */
 
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import useHomeLinkClick from './useHomeLinkClick';
 
 const SOCIAL_LINKS = [
   {
@@ -67,15 +68,7 @@ const SOCIAL_LINKS = [
 ];
 
 export default function Footer() {
-  const { pathname } = useLocation();
-
-  // On the home page the link goes nowhere new, so reload instead to replay the signature animation
-  const onSignatureClick = (e) => {
-    if (pathname !== '/') return;
-    e.preventDefault();
-    window.scrollTo(0, 0); // so the reload starts at the top
-    window.location.reload();
-  };
+  const onSignatureClick = useHomeLinkClick();
 
   return (
     <footer className="w-full border-t border-gray-800 bg-black px-6 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))]">

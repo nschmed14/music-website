@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '../assets/Final Logo.png';
+import useHomeLinkClick from './useHomeLinkClick';
 
 const NAV_LINKS = [
   { path: '/', name: 'Home' },
@@ -105,6 +106,7 @@ function MobileMenu({ open, onClose }) {
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { pathname } = useLocation();
+  const onLogoClick = useHomeLinkClick();
 
   // Close the menu on navigation
   useEffect(() => setMenuOpen(false), [pathname]);
@@ -168,7 +170,12 @@ export default function Header() {
           </div>
 
           {/* Center: logo */}
-          <Link to="/" className="flex justify-center transition-opacity hover:opacity-80" aria-label="Home">
+          <Link
+            to="/"
+            onClick={onLogoClick}
+            className="flex justify-center transition-opacity hover:opacity-80"
+            aria-label="Home"
+          >
             <img
               src={logo}
               alt="Noah Schmedding Saxophone"
