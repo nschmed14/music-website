@@ -137,7 +137,7 @@ export default function Header() {
       <header className="fixed inset-x-0 top-0 z-50 h-20 bg-black/60 backdrop-blur-md desk:h-28">
         <div className="grid h-full grid-cols-[1fr_auto_1fr] items-center px-4 desk:px-8">
           {/* Left: hamburger (compact) or nav (desktop) */}
-          <div className="flex items-center desk:justify-center">
+          <div className="flex items-center desk:pl-2">
             <MenuButton open={menuOpen} onClick={() => setMenuOpen((o) => !o)} />
 
             <nav aria-label="Main" className="hidden items-center gap-5 desk:flex xl:gap-7 2xl:gap-10">
