@@ -195,8 +195,7 @@ export default function Contact() {
           </section>
 
           <section className="panel">
-            <h2 className="mb-3 text-2xl font-light md:text-3xl">Lesson Inquiries</h2>
-            <p className="mb-3 text-lg">When reaching out about lessons, please include:</p>
+            <p className="mb-3 text-lg">When reaching out regarding a lesson inquiry, please include:</p>
             <ul className="ml-5 list-disc space-y-1.5">
               <li>The student's name and year in school</li>
               <li>How many years the student has been playing</li>
