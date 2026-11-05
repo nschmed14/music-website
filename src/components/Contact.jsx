@@ -90,116 +90,119 @@ export default function Contact() {
       <div className="page-top mx-auto flex w-full max-w-7xl justify-center px-4 pb-12 sm:px-8 lg:justify-end">
         <div className="w-full max-w-lg space-y-6">
           <section className="panel">
-            <h1 className="mb-4 text-4xl font-light md:text-5xl">Contact Me</h1>
-            <p className="mb-3 text-lg">If you are reaching out regarding a lesson inquiry, please include:</p>
-            <ul className="ml-5 list-disc space-y-1.5">
-              <li>Student's name</li>
-              <li>Student's year in school</li>
-              <li>Student's primary instrument</li>
-              <li>How many years the student has been playing</li>
-            </ul>
-          </section>
+            <h1 className="mb-5 text-4xl font-light md:text-5xl">Contact Me</h1>
 
-          <form onSubmit={onSubmit} className="panel space-y-4" noValidate>
-            <div aria-live="polite">
-              {status === 'sent' && (
-                <p className="rounded-lg border border-green-600 bg-green-900/80 p-4">
-                  <span className="font-semibold">Message sent!</span> I'll get back to you within 24–48 hours.
-                </p>
-              )}
-              {error && (
-                <p role="alert" className="rounded-lg border border-red-600 bg-red-900/80 p-4">
-                  {error}
-                </p>
-              )}
-            </div>
+            <form onSubmit={onSubmit} className="space-y-4" noValidate>
+              <div aria-live="polite">
+                {status === 'sent' && (
+                  <p className="rounded-lg border border-green-600 bg-green-900/80 p-4">
+                    <span className="font-semibold">Message sent!</span> I'll get back to you within 24–48 hours.
+                  </p>
+                )}
+                {error && (
+                  <p role="alert" className="rounded-lg border border-red-600 bg-red-900/80 p-4">
+                    {error}
+                  </p>
+                )}
+              </div>
 
-            <label className="block">
-              <span className="sr-only">Name</span>
+              <label className="block">
+                <span className="sr-only">Name</span>
+                <input
+                  type="text"
+                  name="name"
+                  value={form.name}
+                  onChange={onChange}
+                  placeholder="Your Name *"
+                  autoComplete="name"
+                  maxLength={100}
+                  required
+                  disabled={sending}
+                  className="field"
+                />
+              </label>
+              <label className="block">
+                <span className="sr-only">Email</span>
+                <input
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={onChange}
+                  placeholder="Your Email *"
+                  autoComplete="email"
+                  inputMode="email"
+                  maxLength={254}
+                  required
+                  disabled={sending}
+                  className="field"
+                />
+              </label>
+              <label className="block">
+                <span className="sr-only">Message</span>
+                <textarea
+                  name="message"
+                  value={form.message}
+                  onChange={onChange}
+                  placeholder="Your Message *"
+                  rows={6}
+                  maxLength={2000}
+                  required
+                  disabled={sending}
+                  className="field min-h-[150px] resize-y"
+                />
+              </label>
+
+              {/* Honeypot: hidden from people, bots tend to fill it in */}
               <input
                 type="text"
-                name="name"
-                value={form.name}
+                name="company"
+                value={form.company}
                 onChange={onChange}
-                placeholder="Your Name *"
-                autoComplete="name"
-                maxLength={100}
-                required
-                disabled={sending}
-                className="field"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="hidden"
               />
-            </label>
-            <label className="block">
-              <span className="sr-only">Email</span>
-              <input
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={onChange}
-                placeholder="Your Email *"
-                autoComplete="email"
-                inputMode="email"
-                maxLength={254}
-                required
-                disabled={sending}
-                className="field"
-              />
-            </label>
-            <label className="block">
-              <span className="sr-only">Message</span>
-              <textarea
-                name="message"
-                value={form.message}
-                onChange={onChange}
-                placeholder="Your Message *"
-                rows={6}
-                maxLength={2000}
-                required
-                disabled={sending}
-                className="field min-h-[150px] resize-y"
-              />
-            </label>
 
-            {/* Honeypot: hidden from people, bots tend to fill it in */}
-            <input
-              type="text"
-              name="company"
-              value={form.company}
-              onChange={onChange}
-              tabIndex={-1}
-              autoComplete="off"
-              aria-hidden="true"
-              className="hidden"
-            />
+              <button
+                type="submit"
+                disabled={sending}
+                className="flex w-full items-center justify-center rounded-lg border border-brown-border bg-brown px-6 py-3 font-medium transition-colors duration-200 hover:bg-brown-hover disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {sending && (
+                  <svg className="-ml-1 mr-3 h-5 w-5 animate-spin" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                )}
+                {sending ? 'Sending…' : 'Send Message'}
+              </button>
 
-            <button
-              type="submit"
-              disabled={sending}
-              className="flex w-full items-center justify-center rounded-lg border border-brown-border bg-brown px-6 py-3 font-medium transition-colors duration-200 hover:bg-brown-hover disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {sending && (
-                <svg className="-ml-1 mr-3 h-5 w-5 animate-spin" fill="none" viewBox="0 0 24 24" aria-hidden="true">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                </svg>
+              {RECAPTCHA_KEY && (
+                <p className="text-center text-xs text-gray-300">
+                  Protected by reCAPTCHA. Google{' '}
+                  <a href="https://policies.google.com/privacy" className="underline" target="_blank" rel="noopener noreferrer">
+                    Privacy
+                  </a>{' '}
+                  and{' '}
+                  <a href="https://policies.google.com/terms" className="underline" target="_blank" rel="noopener noreferrer">
+                    Terms
+                  </a>{' '}
+                  apply.
+                </p>
               )}
-              {sending ? 'Sending…' : 'Send Message'}
-            </button>
+            </form>
+          </section>
 
-            {RECAPTCHA_KEY && (
-              <p className="text-center text-xs text-gray-300">
-                Protected by reCAPTCHA. Google{' '}
-                <a href="https://policies.google.com/privacy" className="underline" target="_blank" rel="noopener noreferrer">
-                  Privacy
-                </a>{' '}
-                and{' '}
-                <a href="https://policies.google.com/terms" className="underline" target="_blank" rel="noopener noreferrer">
-                  Terms
-                </a>{' '}
-                apply.
-              </p>
-            )}
-          </form>
+          <section className="panel">
+            <h2 className="mb-3 text-2xl font-light md:text-3xl">Lesson Inquiries</h2>
+            <p className="mb-3 text-lg">When reaching out about lessons, please include:</p>
+            <ul className="ml-5 list-disc space-y-1.5">
+              <li>The student's name and year in school</li>
+              <li>How many years the student has been playing</li>
+              <li>Your preferred lesson location</li>
+            </ul>
+          </section>
         </div>
       </div>
     </PageLayout>
