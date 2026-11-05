@@ -22,15 +22,30 @@ const json = (status, body) =>
 const clean = (value, max) =>
   typeof value === 'string' ? value.replace(/<[^>]*>/g, '').trim().slice(0, max) : '';
 
-async function verifyRecaptcha(env, token, ip) {
-  if (!env.RECAPTCHA_SECRET_KEY) return true; // verification not configured
-  if (!token) return false;
+/**
+ * Returns null when the check passes, otherwise a short reason code
+ * (logged, and included in the error response to make problems diagnosable).
+ */
+async function recaptchaProblem(env, token, ip) {
+  if (!env.RECAPTCHA_SECRET_KEY) return null; // verification not configured
+  if (!token) return 'missing-token';
 
   const params = new URLSearchParams({ secret: env.RECAPTCHA_SECRET_KEY, response: token });
   if (ip) params.set('remoteip', ip);
   const res = await fetch('https://www.google.com/recaptcha/api/siteverify', { method: 'POST', body: params });
   const data = await res.json();
-  return data.success && data.action === 'contact_submit' && data.score >= MIN_RECAPTCHA_SCORE;
+  console.log('reCAPTCHA result:', JSON.stringify({
+    success: data.success,
+    score: data.score,
+    action: data.action,
+    hostname: data.hostname,
+    errors: data['error-codes'],
+  }));
+
+  if (!data.success) return (data['error-codes'] || ['failed']).join(',');
+  if (data.action !== 'contact_submit') return 'wrong-action';
+  if (typeof data.score === 'number' && data.score < MIN_RECAPTCHA_SCORE) return 'low-score';
+  return null;
 }
 
 async function sendEmail(env, params) {
@@ -71,8 +86,9 @@ async function handleContact(request, env) {
 
   try {
     const ip = request.headers.get('CF-Connecting-IP');
-    if (!(await verifyRecaptcha(env, body.recaptchaToken, ip))) {
-      return json(400, { error: 'Spam check failed. Please refresh the page and try again.' });
+    const problem = await recaptchaProblem(env, body.recaptchaToken, ip);
+    if (problem) {
+      return json(400, { error: 'Spam check failed. Please refresh the page and try again.', reason: problem });
     }
 
     await sendEmail(env, { from_name: name, from_email: email, message, to_email: TO_EMAIL, reply_to: email });
